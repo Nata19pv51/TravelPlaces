@@ -36,7 +36,7 @@ public class JDBCNoteDao implements INoteDao {
     @Override
     public void create(Note note) throws Exception {
         try (PreparedStatement ps = connection.prepareStatement(
-                    "INSERT INTO " + TablesName.NOTE +
+                "INSERT INTO " + TablesName.NOTE +
                         " (" + TableParameters.Note.ID_NOTE + ", " +
                         TableParameters.Note.DATE_CREATION + ", " +
                         TableParameters.Note.ID_USER + ") VALUES (?, ?, ?)")) {
