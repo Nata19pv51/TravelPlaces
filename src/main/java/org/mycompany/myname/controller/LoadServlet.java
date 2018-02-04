@@ -18,8 +18,9 @@ public class LoadServlet extends HttpServlet {
         FindAll getAll = new FindAll();
         List<Note> noteList = getAll.getNote(1);
 
-        String json = new Gson().toJson(noteList);
+        Gson gson = new Gson();
+        String result = gson.toJson(noteList);
 
-        httpServletResponse.getWriter().print(json);
+        httpServletResponse.getWriter().print(result);
     }
 }
