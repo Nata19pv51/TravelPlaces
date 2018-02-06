@@ -1,6 +1,7 @@
 package org.mycompany.myname.controller;
 
 import com.google.gson.Gson;
+import org.mycompany.myname.model.dao.implement.JDBCDisplaNote;
 import org.mycompany.myname.model.entity.Note;
 
 import javax.servlet.http.HttpServlet;
@@ -15,12 +16,14 @@ public class LoadServlet extends HttpServlet {
             throws IOException {
 //        httpServletResponse.getWriter().print("Hello from servlet");
 
-        FindAll getAll = new FindAll();
-        List<Note> noteList = getAll.getNote(1);
-
+//        FindAll getAll = new FindAll();
+//        List<Note> noteList = getAll.getNote(1);
+//
+//        Gson gson = new Gson();
+//        String result = gson.toJson(noteList);
+        List<JDBCDisplaNote> nodes =  JDBCDisplaNote.getDisplayNotesByUserID(1);
         Gson gson = new Gson();
-        String result = gson.toJson(noteList);
-
-        httpServletResponse.getWriter().print(result);
+        String jsonString = gson.toJson(nodes);
+        httpServletResponse.getWriter().print(jsonString);
     }
 }

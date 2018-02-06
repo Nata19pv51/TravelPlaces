@@ -9,6 +9,7 @@ public class Note {
     private Date dateCreation;
     private User user;
 
+
     public int getIdNote() {
         return idNote;
     }

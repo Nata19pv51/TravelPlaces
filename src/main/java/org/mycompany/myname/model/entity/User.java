@@ -3,6 +3,9 @@ package org.mycompany.myname.model.entity;
 import javax.jws.soap.SOAPBinding;
 
 public class User {
+    final public static String USER = "user";
+
+
     private int idUser;
     private String login;
     private String password;

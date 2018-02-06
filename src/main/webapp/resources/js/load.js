@@ -17,11 +17,10 @@ function setNotesContent(data, status, jqxhr) {
     var info = $("#div")
     data.forEach(function (item, i, data) {
         info.append(
-            "<p> ID: " + item.idNote +
-            "Date of creation: " + item.dateCreation +
-            // "Coordinate: " + item.coordinate +
-            // "Text note: " + item.text + 
-            "$</p>")
+            "<p> USER ID: " + item.userId + "</p>" +
+            "<p>Date of creation: " + item.time + "</p>" +
+            "<p>Coord : " + item.coord + "</p>" +
+            "<p>Text : " + item.text + "</p>")
     });
     $("#insert_div").html(info);
 }

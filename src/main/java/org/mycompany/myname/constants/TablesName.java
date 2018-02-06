@@ -1,7 +1,7 @@
 package org.mycompany.myname.constants;
 
 public class TablesName {
-    final public static String USER = "Travel.user";
+
     final public static String TEXT = "Travel.textnode";
     final public static String COORDINATE = "Travel.coordinate";
     final public static String PHOTO = "Travel.notePhoto";
