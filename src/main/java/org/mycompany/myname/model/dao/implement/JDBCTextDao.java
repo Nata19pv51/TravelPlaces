@@ -1,8 +1,6 @@
 package org.mycompany.myname.model.dao.implement;
 
 import org.mycompany.myname.constants.TableParameters;
-import org.mycompany.myname.constants.TablesName;
-import org.mycompany.myname.model.dao.DaoAbstract;
 import org.mycompany.myname.model.dao.ITextDao;
 import org.mycompany.myname.model.entity.Text;
 

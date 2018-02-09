@@ -3,8 +3,12 @@ package org.mycompany.myname.model.entity;
 import javax.jws.soap.SOAPBinding;
 
 public class User {
-    final public static String USER = "user";
-
+    final public static String USER_TABLE = "user";
+    final public static String ID_USER = "id_user";
+    final public static String LOGIN = "login";
+    final public static String PASSWORD = "password";
+    final public static String EMAIL = "email";
+    final public static String COUNTRY = "country";
 
     private int idUser;
     private String login;

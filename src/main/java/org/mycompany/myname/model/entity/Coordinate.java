@@ -1,6 +1,10 @@
 package org.mycompany.myname.model.entity;
 
 public class Coordinate {
+    final public static String COORDINATE_TABLE = "coordinate";
+    final public static String ID_NOTE = "id_note";
+    final public static String CORDINATE = "coordinate";
+
     private Note note;
     private double coordinate;
 

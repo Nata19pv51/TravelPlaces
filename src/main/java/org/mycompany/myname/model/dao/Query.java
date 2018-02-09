@@ -1,7 +1,6 @@
 package org.mycompany.myname.model.dao;
 
 import org.mycompany.myname.constants.TableParameters;
-import org.mycompany.myname.constants.TablesName;
 
 public class Query {
     public static String findAll(String table){

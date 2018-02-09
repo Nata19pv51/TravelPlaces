@@ -4,6 +4,12 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 public class Route {
+    final public static String ROUTE_TABLE = "route";
+    final public static String ID_ROUTE = "id_route";
+    final public static String NAME = "name";
+    final public static String DATE_CREATION = "dateCreation";
+    final public static String ID_USER = "id_user";
+
     private int idRoute;
     private String name;
     private Date dateCreation;

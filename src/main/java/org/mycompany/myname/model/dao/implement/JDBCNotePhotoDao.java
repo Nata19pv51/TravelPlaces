@@ -1,11 +1,7 @@
 package org.mycompany.myname.model.dao.implement;
 
-import org.mycompany.myname.constants.TableParameters;
-import org.mycompany.myname.constants.TablesName;
-import org.mycompany.myname.model.dao.DaoAbstract;
 import org.mycompany.myname.model.dao.INotePhotoDao;
 import org.mycompany.myname.model.dao.Query;
-import org.mycompany.myname.model.entity.Note;
 import org.mycompany.myname.model.entity.NotePhoto;
 
 import java.sql.*;
@@ -24,7 +20,7 @@ public class JDBCNotePhotoDao implements INotePhotoDao {
     }
 
     protected NotePhoto extractFromResultSet(ResultSet resultSet) throws SQLException {
-        String url = resultSet.getString(TableParameters.Photo.URL_PHOTO);
+        String url = resultSet.getString(NotePhoto.URL_PHOTO);
         return new NotePhoto.NotePhotoBuilder()
                 .setUrl(url)
                 .build();
@@ -33,8 +29,8 @@ public class JDBCNotePhotoDao implements INotePhotoDao {
     @Override
     public void create(NotePhoto notePhoto)throws Exception {
         try(PreparedStatement preparedStatement = connection.prepareStatement
-                ("INSERT INTO " + TablesName.PHOTO + "(" + TableParameters.Photo.ID_NOTE + ", " +
-                        TableParameters.Photo.URL_PHOTO + ") VALUES (?, ?)")){
+                ("INSERT INTO " + NotePhoto.PHOTO_TABLE + "(" + NotePhoto.ID_NOTE + ", " +
+                        NotePhoto.URL_PHOTO + ") VALUES (?, ?)")){
             preparedStatement.setObject(1, notePhoto.getNote());
             preparedStatement.setString(2, notePhoto.getUrl());
             preparedStatement.executeUpdate();
@@ -71,7 +67,7 @@ public class JDBCNotePhotoDao implements INotePhotoDao {
     @Override
     public void delete(int id) {
         try(PreparedStatement preparedStatement = connection.prepareStatement
-                ("DELETE FROM " + TablesName.PHOTO + " WHERE " + TableParameters.Photo.ID_NOTE + " = ?")){
+                ("DELETE FROM " + NotePhoto.PHOTO_TABLE + " WHERE " + NotePhoto.ID_NOTE + " = ?")){
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         }catch (SQLException e) {

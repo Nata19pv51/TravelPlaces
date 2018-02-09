@@ -1,6 +1,10 @@
 package org.mycompany.myname.model.entity;
 
 public class Text {
+    final public static String TEXT_TABLE = "textnode";
+    final public static String ID_NOTE = "id_note";
+    final public static String TEXT = "text";
+
     private Note note;
     private String text;
 

@@ -1,6 +1,10 @@
 package org.mycompany.myname.model.entity;
 
 public class SharedNote {
+    final public static String SHARED_NOTE_TABLE = "SharedNode";
+    final public static String ID_USER = "id_user";
+    final public static String ID_NOTE = "id_note";
+
     private User receiver;
     private Note note;
 

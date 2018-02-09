@@ -1,10 +1,7 @@
 package org.mycompany.myname.model.dao.implement;
 
-import org.mycompany.myname.constants.TableParameters;
-import org.mycompany.myname.model.dao.DaoAbstract;
 import org.mycompany.myname.model.dao.ICoordinateDao;
 import org.mycompany.myname.model.entity.Coordinate;
-import org.mycompany.myname.model.entity.Note;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -22,7 +19,7 @@ public class JDBCCoordinateDao implements ICoordinateDao {
 
     protected Coordinate extractFromResultSet(ResultSet resultSet) throws SQLException {
 //        int id = resultSet.getInt(TableParameters.Coordinate.ID_NOTE);
-        double coordinate = resultSet.getDouble(TableParameters.Coordinate.CORDINATE);
+        double coordinate = resultSet.getDouble(Coordinate.CORDINATE);
         return new Coordinate.CoordinateBuilder()
                 .setCoordinate(coordinate)
                 .build();

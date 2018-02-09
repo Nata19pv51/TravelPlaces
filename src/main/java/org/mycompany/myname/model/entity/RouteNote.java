@@ -1,6 +1,10 @@
 package org.mycompany.myname.model.entity;
 
 public class RouteNote {
+    final public static String ROUTENOTE_TABLE = "routeNote";
+    final public static String ID_ROUTE = "id_route";
+    final public static String ID_NOTE = "id_note";
+
     private Route route;
     private Note note;
 

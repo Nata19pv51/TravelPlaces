@@ -1,18 +1,22 @@
 package org.mycompany.myname.model.dao.implement;
 
 import com.google.gson.Gson;
+import org.mycompany.myname.model.dao.ICoordinateDao;
+import org.mycompany.myname.model.dao.INoteDao;
+import org.mycompany.myname.model.dao.ITextDao;
 import org.mycompany.myname.model.dao.Query;
+import org.mycompany.myname.model.entity.Coordinate;
 import org.mycompany.myname.model.entity.Note;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JDBCDisplaNote {
+public class JDBCDisplayNote{
     private long time;
     private int userId;
     private String text;
-    private double coord;
+    private double coordination;
 
     public long getTime() {
         return time;
@@ -38,29 +42,29 @@ public class JDBCDisplaNote {
         this.text = text;
     }
 
-    public double getCoord() {
-        return coord;
+    public double getCoordination() {
+        return coordination;
     }
 
-    public void setCoord(double coord) {
-        this.coord = coord;
+    public void setCoordination(double coordination) {
+        this.coordination = coordination;
     }
 
-    static public List<JDBCDisplaNote> getDisplayNotesByUserID(int userId) {
+    static public List<JDBCDisplayNote> getDisplayNotesByUserID(int userId) {
         String URL = "jdbc:mysql://localhost/Travel";
         String USER  = "root";
 
-        List<JDBCDisplaNote> notes = new ArrayList<>();
+        List<JDBCDisplayNote> notes = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(URL, USER, "");
              Statement ps = connection.createStatement();
              ResultSet resultSet = ps.executeQuery(Query.findAllNotesByUserId(userId))) {
 
-            JDBCDisplaNote note;
+            JDBCDisplayNote note;
             while (resultSet.next()) {
-                note = new JDBCDisplaNote();
+                note = new JDBCDisplayNote();
                 note.setUserId(userId);
                 note.setText(resultSet.getString("text"));
-                note.setCoord(resultSet.getDouble("coordinate"));
+                note.setCoordination(resultSet.getDouble("coordinate"));
                 note.setTime(resultSet.getLong("dateCreation"));
                 notes.add(note);
             }
@@ -73,7 +77,7 @@ public class JDBCDisplaNote {
     }
 
     public static void main(String[] args){
-        List<JDBCDisplaNote> nodes =  JDBCDisplaNote.getDisplayNotesByUserID(1);
+        List<JDBCDisplayNote> nodes =  JDBCDisplayNote.getDisplayNotesByUserID(1);
         Gson gson = new Gson();
         String jsonString = gson.toJson(nodes);
         System.out.println(jsonString);

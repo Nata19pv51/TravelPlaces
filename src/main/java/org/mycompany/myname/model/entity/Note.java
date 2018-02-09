@@ -5,6 +5,11 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 public class Note {
+    final public static String NOTE_TABLE = "note";
+    final public static String ID_NOTE = "id_note";
+    final public static String DATE_CREATION = "dateCreation";
+    final public static String ID_USER = "id_user";
+
     private int idNote;
     private Date dateCreation;
     private User user;

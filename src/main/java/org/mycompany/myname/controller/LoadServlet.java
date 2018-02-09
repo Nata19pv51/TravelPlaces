@@ -1,8 +1,7 @@
 package org.mycompany.myname.controller;
 
 import com.google.gson.Gson;
-import org.mycompany.myname.model.dao.implement.JDBCDisplaNote;
-import org.mycompany.myname.model.entity.Note;
+import org.mycompany.myname.model.dao.implement.JDBCDisplayNote;
 
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +20,7 @@ public class LoadServlet extends HttpServlet {
 //
 //        Gson gson = new Gson();
 //        String result = gson.toJson(noteList);
-        List<JDBCDisplaNote> nodes =  JDBCDisplaNote.getDisplayNotesByUserID(1);
+        List<JDBCDisplayNote> nodes =  JDBCDisplayNote.getDisplayNotesByUserID(1);
         Gson gson = new Gson();
         String jsonString = gson.toJson(nodes);
         httpServletResponse.getWriter().print(jsonString);

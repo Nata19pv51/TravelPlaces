@@ -1,6 +1,5 @@
 package org.mycompany.myname.model.dao.factory;
 
-import org.mycompany.myname.constants.TablesName;
 import org.mycompany.myname.model.dao.*;
 import org.mycompany.myname.model.dao.implement.*;
 
@@ -56,7 +55,6 @@ public class JDBCDaoFactory extends DaoFactory {
 
     @Override
     public INoteDao createNoteDao() {
-        //return new JDBCNoteDao(TablesName.NOTE, connection);
         return new JDBCNoteDao(getConnection());
     }
 
@@ -98,6 +96,11 @@ public class JDBCDaoFactory extends DaoFactory {
     @Override
     public ISharedRouteDao createSharedRouteDao() {
         return new JDBCSharedRouteDao(getConnection());
+    }
+
+    @Override
+    public IDisplayNoteDao createDisplayNoteDao() {
+        return  new JDBCDisplayNoteDao();
     }
 
     private Connection getConnection(){

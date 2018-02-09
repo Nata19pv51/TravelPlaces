@@ -1,15 +1,10 @@
 package org.mycompany.myname.model.dao.implement;
 
-import org.mycompany.myname.constants.TableParameters;
-import org.mycompany.myname.constants.TablesName;
-import org.mycompany.myname.model.dao.DaoAbstract;
 import org.mycompany.myname.model.dao.IRouteDao;
 import org.mycompany.myname.model.dao.Query;
 import org.mycompany.myname.model.entity.Route;
-import org.mycompany.myname.model.entity.User;
 
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,9 +19,9 @@ public class JDBCRouteDao implements IRouteDao {
     }
 
     protected Route extractFromResultSet(ResultSet resultSet) throws SQLException {
-        int id = resultSet.getInt(TableParameters.Route.ID_ROUTE);
-        String name = resultSet.getString(TableParameters.Route.NAME);
-        Date dateCreation = resultSet.getDate(TableParameters.Route.DATE_CREATION);
+        int id = resultSet.getInt(Route.ID_ROUTE);
+        String name = resultSet.getString(Route.NAME);
+        Date dateCreation = resultSet.getDate(Route.DATE_CREATION);
         //int idUser = resultSet.getInt(TableParameters.User.ID_USER);
         return new Route.RouteBuilder()
                 .setIdRoute(id)
@@ -38,8 +33,8 @@ public class JDBCRouteDao implements IRouteDao {
     @Override
     public void create(Route route) throws Exception {
         try(PreparedStatement preparedStatement = connection.prepareStatement
-                ("INSERT INTO " + TablesName.ROUTE + " (" + TableParameters.Route.NAME + ", " +
-                        TableParameters.Route.DATE_CREATION + ", " + TableParameters.Route.ID_USER +
+                ("INSERT INTO " + Route.ROUTE_TABLE + " (" + Route.NAME + ", " +
+                        Route.DATE_CREATION + ", " +Route.ID_USER +
                         ") VALUES (?, ?, ?)")){
             preparedStatement.setString(1, route.getName());
             preparedStatement.setObject(2, route.getDateCreation());
@@ -78,7 +73,7 @@ public class JDBCRouteDao implements IRouteDao {
     @Override
     public void update(Route route) {
         try(PreparedStatement preparedStatement = connection.prepareStatement
-                ("UPDATE " + TablesName.ROUTE + " SET name = ? WHERE " + TableParameters.Route.ID_ROUTE + " = ?")){
+                ("UPDATE " + Route.ROUTE_TABLE + " SET name = ? WHERE " + Route.ID_ROUTE + " = ?")){
             preparedStatement.setString(1, route.getName());
             preparedStatement.executeUpdate();
         }catch (SQLException e) {
@@ -89,7 +84,7 @@ public class JDBCRouteDao implements IRouteDao {
     @Override
     public void delete(int id) {
         try(PreparedStatement preparedStatement = connection.prepareStatement
-                ("DELETE FROM " + TablesName.ROUTE + " WHERE " + TableParameters.Route.ID_ROUTE + " = ?")){
+                ("DELETE FROM " + Route.ROUTE_TABLE + " WHERE " + Route.ID_ROUTE + " = ?")){
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();
         }catch (SQLException e) {

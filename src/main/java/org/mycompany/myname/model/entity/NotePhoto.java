@@ -1,6 +1,10 @@
 package org.mycompany.myname.model.entity;
 
 public class NotePhoto {
+    final public static String PHOTO_TABLE = "notePhoto";
+    final public static String ID_NOTE = "id_note";
+    final public static String URL_PHOTO = "url_photo";
+
     private Note note;
     private String url;
 

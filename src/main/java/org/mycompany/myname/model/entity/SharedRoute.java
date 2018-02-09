@@ -1,6 +1,10 @@
 package org.mycompany.myname.model.entity;
 
 public class SharedRoute {
+    final public static String SHARED_ROUTE_TABLE = "SharedRoute";
+    final public static String ID_USER = "id_user";
+    final public static String ID_ROUTE = "id_route";
+
     private User receiver;
     private Route route;
 

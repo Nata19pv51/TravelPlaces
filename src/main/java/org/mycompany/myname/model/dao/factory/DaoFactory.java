@@ -25,6 +25,7 @@ public abstract class DaoFactory {
     public abstract IUserDao createUserDao();
     public abstract ISharedNoteDao createSharedNoteDao();
     public abstract ISharedRouteDao createSharedRouteDao();
+    public abstract IDisplayNoteDao createDisplayNoteDao();
 
     public static DaoFactory getInstance(){
         if(daoFactory == null){

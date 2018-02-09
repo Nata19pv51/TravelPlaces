@@ -1,6 +1,5 @@
 package org.mycompany.myname.model.dao.implement;
 
-import org.mycompany.myname.constants.TableParameters;
 import org.mycompany.myname.model.dao.DaoAbstract;
 import org.mycompany.myname.model.dao.IUserDao;
 import org.mycompany.myname.model.entity.User;
@@ -20,11 +19,11 @@ public class JDBCUserDao implements IUserDao {
     }
 
     protected User extractFromResultSet(ResultSet resultSet) throws SQLException {
-        int id = resultSet.getInt(TableParameters.User.ID_USER);
-        String login = resultSet.getString(TableParameters.User.LOGIN);
-        String password = resultSet.getString(TableParameters.User.PASSWORD);
-        String email = resultSet.getString(TableParameters.User.EMAIL);
-        String country = resultSet.getString(TableParameters.User.COUNTRY);
+        int id = resultSet.getInt(User.ID_USER);
+        String login = resultSet.getString(User.LOGIN);
+        String password = resultSet.getString(User.PASSWORD);
+        String email = resultSet.getString(User.EMAIL);
+        String country = resultSet.getString(User.COUNTRY);
         return new User.UserBuilder()
                 .setIdUser(id)
                 .setLogin(login)
