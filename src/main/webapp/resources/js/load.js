@@ -19,7 +19,7 @@ function setNotesContent(data, status, jqxhr) {
         info.append(
             "<p> USER ID: " + item.userId + "</p>" +
             "<p>Date of creation: " + item.time + "</p>" +
-            "<p>Coord : " + item.coord + "</p>" +
+            "<p>Coord : " + item.coordination + "</p>" +
             "<p>Text : " + item.text + "</p>")
     });
     $("#insert_div").html(info);

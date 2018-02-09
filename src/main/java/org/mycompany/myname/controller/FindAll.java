@@ -1,6 +1,5 @@
 package org.mycompany.myname.controller;
 
-import org.mycompany.myname.constants.TableParameters;
 import org.mycompany.myname.model.dao.*;
 import org.mycompany.myname.model.dao.factory.DaoFactory;
 import org.mycompany.myname.model.entity.*;
@@ -72,6 +71,13 @@ public class FindAll {
         DaoFactory factory = DaoFactory.getInstance();
         ISharedRouteDao dao = factory.createSharedRouteDao();
         List<SharedRoute> list = dao.findAll(id);
+        return list;
+    }
+
+    public List<DisplayNote> getDisplayNote(int id){
+        DaoFactory factory = DaoFactory.getInstance();
+        IDisplayNoteDao dao = factory.createDisplayNoteDao();
+        List<DisplayNote> list = dao.findAllNotesByUserID(id);
         return list;
     }
 }
