@@ -29,6 +29,8 @@ public interface IDisplayNoteDao extends IGenericDao<DisplayNote>{
             " JOIN textnode ON note.id_note=textnode.id_note" +
             " WHERE note.id_user = ?";
 
+    public static final String EDIT =  "UPDATE " + Text.TEXT_TABLE + " SET " + Text.TEXT + " = ?" +
+            " WHERE " + Text.ID_NOTE + " = ?";
 
 //    public static final String DELETE_BY_ID = "DELETE FROM " + Note.NOTE_TABLE + " WHERE id = ?";
 //    public static final String DELETE_BY_ID = "DELETE FROM " +

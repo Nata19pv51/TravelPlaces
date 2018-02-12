@@ -14,6 +14,7 @@ function loadData() {
 }
 
 function setNotesContent(data, status, jqxhr) {
+    console.log(data)
     data = JSON.parse(data)
     var info = $("#div")
     info.append(
@@ -23,37 +24,63 @@ function setNotesContent(data, status, jqxhr) {
                 "<p>Enter the info about note</p>" +
                 "<input type=\"search\" name=\"search\" id=\"search\" placeholder=\"Info\"/>" +
             "</div>" +
-        "</div>" +
-        "<div id=\"listNotes\">");
+        "</div>");
+
+    var noteList = $("<div id=\"listNotes\"></div>");
+        //"<form id=\"listNotes\" class=\"form-inline\" method=\"GET\" action=\"editTextServlet\">");
 
     data.forEach(function (item, i, data) {
-        info.append("<div class=\"divNotes\">" +
-                        "<h4>" + item.time + "</h4>" +
-                        "<div class=\"textNote\">" + item.text + "</div>" +
-                     "</div>");
+        noteList.append(
+                        "<div class=\"divNotes\">" +
+                            "<p class=\"invisible id\" name=\"id\">" + item.noteId + "</p>" +
+                            "<h4>" + item.time + "</h4>" +
+                            "<div class=\"textNote\" name=\"textNote\">" + item.text + "</div>" +
+                        "</div>"
+                     );
         console.log("Fill date and text of note");
-//        $(".textNote").dblclick(function() {
-//           console.log("Hello");
-//           $('div#textNote').each(function() {
-//                $(this).replaceWith("<textarea id='textNote'>" + $(this).html() + "</textarea>")
-//           });
-//        });
     });
-    info.append("</div>")
+
+    info.append(noteList);
+
     $("#insert_div").html(info);
 
     $(".textNote").dblclick(function() {
-              console.log("Hello");
-             $(this).replaceWith("<textarea id='textNote'>" + $(this).html() + "</textarea>");
-        });
-}
-
-function edit(){
-    console.log("Hello");
-    $('div#textNote').each(function() {
-        $(this).replaceWith("<textarea id='textNote'>" + $(this).html() + "</textarea>");
+        $(this).replaceWith(
+            "<form class=\"form-inline\" method=\"GET\" action=\"editTextServlet\">" +
+                "<textarea class='textNote'>" + $(this).html() + "</textarea>" +
+                    "<div class=\"input-group\">" +
+                        "<span class=\"input-group-btn\">" +
+                            "<button class=\"btn btn-info\" type=\"submit\">Save</button>" +
+                            "<button class=\"btn btn-info\">Cancel</button>" +
+                        "</span>" +
+                    "</div>" +
+        "</form>"
+        );
     });
 }
+        //var textNote = $(".textNote");
+
+        //$("body").off( "dblclick", "#insert_div").find( "#insert_div" );
+
+//        i++;
+//        if(i == 1){
+//           // $("#insert_div").unbind();
+//
+//            $("body").off( "dblclick", "#insert_div").find( "#insert_div" );
+//
+//            console.log("world!");
+//            //$("#insert_div").on("dblclick", "td:not(.disabled)", false);
+////            $(".textNote").bind('dblclick',function(){
+////                console.log("world!");
+////                return false;
+////            });
+//        }
+        //
+
+    //onClick="this.disabled='true'";
+
+
+
 //        info.append(
 ////            "<li>" +
 //            "<div id=\"edit\">" +

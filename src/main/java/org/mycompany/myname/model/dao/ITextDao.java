@@ -6,5 +6,6 @@ public interface ITextDao extends IGenericDao<Text> {
     public static final String FIND_ALL = "SELECT * FROM " + Text.TEXT_TABLE;
     public static final String FIND_BY_ID = "SELECT * FROM " + Text.TEXT_TABLE + " WHERE id = ?";
     public static final String DELETE_BY_ID =  "DELETE FROM " + Text.TEXT_TABLE + " WHERE id = ?";
-
+    public static final String EDIT =  "UPDATE " + Text.TEXT_TABLE + " SET " + Text.TEXT + " = ?" +
+                                       " WHERE " + Text.ID_NOTE + " = ?";
 }

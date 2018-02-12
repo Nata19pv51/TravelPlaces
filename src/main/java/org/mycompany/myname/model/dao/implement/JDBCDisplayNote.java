@@ -17,6 +17,15 @@ public class JDBCDisplayNote{
     private int userId;
     private String text;
     private double coordination;
+    private int noteId;
+
+    public int getNoteId() {
+        return noteId;
+    }
+
+    public void setNoteId(int noteId) {
+        this.noteId = noteId;
+    }
 
     public long getTime() {
         return time;
@@ -63,6 +72,7 @@ public class JDBCDisplayNote{
             while (resultSet.next()) {
                 note = new JDBCDisplayNote();
                 note.setUserId(userId);
+                note.setNoteId(resultSet.getInt("id_note"));
                 note.setText(resultSet.getString("text"));
                 note.setCoordination(resultSet.getDouble("coordinate"));
                 note.setTime(resultSet.getLong("dateCreation"));

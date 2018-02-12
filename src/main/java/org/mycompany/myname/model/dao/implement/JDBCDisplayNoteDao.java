@@ -3,6 +3,7 @@ package org.mycompany.myname.model.dao.implement;
 import com.google.gson.Gson;
 import org.mycompany.myname.model.dao.IDisplayNoteDao;
 import org.mycompany.myname.model.entity.DisplayNote;
+import org.mycompany.myname.model.entity.Text;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,8 +17,16 @@ public class JDBCDisplayNoteDao implements IDisplayNoteDao {
 //    }
 
     @Override
-    public void create(DisplayNote entity) throws Exception {
-
+    public void create(DisplayNote note) throws Exception {
+        String query =  "UPDATE " + Text.TEXT_TABLE + " SET " + Text.TEXT + " = ?" +
+                " WHERE " + Text.ID_NOTE + " = ?";
+        try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, note.getText());
+            preparedStatement.setInt(2, note.getNoteId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

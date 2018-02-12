@@ -32,8 +32,9 @@ public class LoadServlet extends HttpServlet {
         List<JDBCDisplayNote> nodes =  JDBCDisplayNote.getDisplayNotesByUserID(1);
         Gson gson = new Gson();
         String jsonString = gson.toJson(nodes);
+        System.out.println(jsonString);
         httpServletResponse.getWriter().print(jsonString);
-//        System.out.println(jsonString);
+
 
 
         //System.out.println(jsonString);
