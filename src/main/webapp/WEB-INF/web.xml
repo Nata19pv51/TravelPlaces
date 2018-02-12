@@ -20,6 +20,11 @@
     <servlet-class>org.mycompany.myname.controller.LoadServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>EditText</servlet-name>
+    <servlet-class>org.mycompany.myname.controller.EditText</servlet-class>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>SignInServlet</servlet-name>
     <url-pattern>/signIn</url-pattern>
@@ -35,5 +40,9 @@
     <url-pattern>/servletInNotes</url-pattern>
   </servlet-mapping>
 
+  <servlet-mapping>
+    <servlet-name>EditText</servlet-name>
+    <url-pattern>/editTextServlet</url-pattern>
+  </servlet-mapping>
 
 </web-app>
