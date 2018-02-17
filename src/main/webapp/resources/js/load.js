@@ -19,21 +19,25 @@ function setNotesContent(data, status, jqxhr) {
     console.log(data)
     data = JSON.parse(data)
     var info = $("#div")
-    info.append(
-        "<div class=\"text-center mb-5\" id=\"searcharea\">" +
-            "<div>" +
-                "<label for=\"search\">Live Search</label>" +
-                "<p>Enter the info about note</p>" +
-                "<input type=\"search\" name=\"search\" id=\"search\" placeholder=\"Info\"/>" +
-            "</div>" +
-        "</div>");
+//    info.append(
+//        "<div class=\"text-center mb-5\" id=\"searcharea\">" +
+//            "<div>" +
+//                "<label for=\"search\">Live Search</label>" +
+//                "<p>Enter the info about note</p>" +
+//                "<input type=\"search\" name=\"search\" id=\"search\" placeholder=\"Info\"/>" +
+//            "</div>" +
+//        "</div>");
+    $("header").hide();
+    $("body").css({"background-image":"url(resources/images/Paris.jpg",
+                  "background-repeat":"no-repeat",
+                  "background-size":"cover"});
 
     var noteList = $("<form class=\"mt-5\" id=\"listNotes\" method=\"GET\" action=\"editTextServlet\">" +
-                        "<button class=\"btn btn-info\" id=\"delete\">Add new</button>" +
+                        "<button class=\"btn m-2 btn-primary\" id=\"delete\">Add new</button>" +
                      "</form>");
     data.forEach(function (item, i, data) {
         noteList.append(
-                        "<div class=\"divNotes\">" +
+                        "<div class=\"divNotes mb-2\">" +
                             "<input type=\"hidden\" name=\"idNote\" value=\"" + item.noteId + "\"/>" +
                                 "<h4 class=\"col-sm-4\">" + item.time + "</h4>" +
                             "<div class=\"textNote\" name=\"textNote\">" + item.text + "</div>" +
@@ -43,9 +47,15 @@ function setNotesContent(data, status, jqxhr) {
     });
 
     info.append(noteList);
-
+//#FFE4C4
     $("#insert_div").html(info);
+    $(".divNotes").css({"background":"#B0E0E6",
+                       "border-color":"#4682B4",
+                       "border-style":"solid",
+                       "border-radius":"8px",
+                       "padding":"5px"});
 
+    //$("#delete").css('background', '#008000');
     $(".textNote").dblclick(function() {
         $(this).replaceWith(
                 //"<textarea class='textNote'>" + $(this).html() + "</textarea>" +
