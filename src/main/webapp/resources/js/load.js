@@ -28,15 +28,14 @@ function setNotesContent(data, status, jqxhr) {
             "</div>" +
         "</div>");
 
-    var noteList = $("<form class=\"mt-5\" id=\"listNotes\" method=\"GET\" action=\"editTextServlet\"></form>");
-    //("<div id=\"listNotes\"></div>");
-        //"<form id=\"listNotes\" class=\"form-inline\" method=\"GET\" action=\"editTextServlet\">");
-
+    var noteList = $("<form class=\"mt-5\" id=\"listNotes\" method=\"GET\" action=\"editTextServlet\">" +
+                        "<button class=\"btn btn-info\" id=\"delete\">Add new</button>" +
+                     "</form>");
     data.forEach(function (item, i, data) {
         noteList.append(
                         "<div class=\"divNotes\">" +
                             "<input type=\"hidden\" name=\"idNote\" value=\"" + item.noteId + "\"/>" +
-                            "<h4>" + item.time + "</h4>" +
+                                "<h4 class=\"col-sm-4\">" + item.time + "</h4>" +
                             "<div class=\"textNote\" name=\"textNote\">" + item.text + "</div>" +
                         "</div>"
                      );
