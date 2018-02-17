@@ -46,6 +46,7 @@ public class JDBCUserDao implements IUserDao {
         }
     }
 
+
     @Override
     public User findById(int id) {
         try(PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM user WHERE id_user = ?")){

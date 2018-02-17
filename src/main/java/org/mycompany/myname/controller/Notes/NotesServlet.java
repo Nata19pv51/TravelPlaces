@@ -1,4 +1,4 @@
-package org.mycompany.myname.controller;
+package org.mycompany.myname.controller.Notes;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import org.mycompany.myname.model.entity.Note;

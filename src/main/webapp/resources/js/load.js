@@ -1,8 +1,10 @@
 $("document").ready(function () {
     $("#notes").click(loadData);
+    console.log("Click notes");
 });
 
 function loadData() {
+    console.log("Load");
     $('#homeInformation').remove();
     $('#notes').prop("disabled", true);
     $.ajax("servletInNotes",
@@ -26,13 +28,14 @@ function setNotesContent(data, status, jqxhr) {
             "</div>" +
         "</div>");
 
-    var noteList = $("<div id=\"listNotes\"></div>");
+    var noteList = $("<form class=\"mt-5\" id=\"listNotes\" method=\"GET\" action=\"editTextServlet\"></form>");
+    //("<div id=\"listNotes\"></div>");
         //"<form id=\"listNotes\" class=\"form-inline\" method=\"GET\" action=\"editTextServlet\">");
 
     data.forEach(function (item, i, data) {
         noteList.append(
                         "<div class=\"divNotes\">" +
-                            "<p class=\"invisible id\" name=\"id\">" + item.noteId + "</p>" +
+                            "<input type=\"hidden\" name=\"idNote\" value=\"" + item.noteId + "\"/>" +
                             "<h4>" + item.time + "</h4>" +
                             "<div class=\"textNote\" name=\"textNote\">" + item.text + "</div>" +
                         "</div>"
@@ -46,18 +49,61 @@ function setNotesContent(data, status, jqxhr) {
 
     $(".textNote").dblclick(function() {
         $(this).replaceWith(
-            "<form class=\"form-inline\" method=\"GET\" action=\"editTextServlet\">" +
-                "<textarea class='textNote'>" + $(this).html() + "</textarea>" +
-                    "<div class=\"input-group\">" +
-                        "<span class=\"input-group-btn\">" +
-                            "<button class=\"btn btn-info\" type=\"submit\">Save</button>" +
-                            "<button class=\"btn btn-info\">Cancel</button>" +
-                        "</span>" +
-                    "</div>" +
-        "</form>"
-        );
+                //"<textarea class='textNote'>" + $(this).html() + "</textarea>" +
+                "<div id=\"replaceText\">" +
+                    "<input type=\"text\" class=\"textNote\" name=\"textNote\" value=\"" + $(this).html() + "\">" +
+                        "<div class=\"input-group\">" +
+                            "<span class=\"input-group-btn\">" +
+                                "<button class=\"btn btn-info\" id=\"saveText\">Save</button>" +
+                                "<button class=\"btn btn-info\">Cancel</button>" +
+                            "</span>" +
+                        "</div>" +
+                "</div>");
+
+
+        $("#saveText").click(newData);
+                function newData() {
+                   $('#saveText').prop("disabled", true);
+                   $.ajax("replacedText",
+                   {
+                       success: newtext,
+                       type: "GET",
+                       dataType: "text"
+                   });
+                }
+                   function newtext(data, status, jqxhr) {
+                        data = JSON.parse(data);
+                        $("#replaceText").replaceWith("<div class=\"textNote\" name=\"textNote\">" + data.text + "</div>")
+                   }
+//        var text = $(this).html();
+//        $("#replaceText").replaceWith("<div class=\"textNote\" name=\"textNote\">" + text + "</div>")
     });
+
+                          //        function(){
+                          //            console.log("Click");
+                          //            $("#replaceText").replaceWith(
+                          //                "<div class=\"textNote\" name=\"textNote\">" + text + "</div>"
+                          //            );
+                          //            console.log("replace");
+                          //        }
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
         //var textNote = $(".textNote");
 
         //$("body").off( "dblclick", "#insert_div").find( "#insert_div" );

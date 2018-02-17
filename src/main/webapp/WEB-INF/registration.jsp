@@ -28,7 +28,7 @@
     data-target="#myContent" aria-controls="myContent" aria-expanded="false" aria-label="Toggle Navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="myContent">
+    <div id="navigate" class="collapse navbar-collapse" id="myContent">
       <div class="navbar-nav mr-auto">
         <a class="nav-item nav-link active" href="#">Home</a>
         <a class="nav-item nav-link" href="#">Routes</a>
@@ -65,38 +65,47 @@
 
 
 <div class="container">
-  <form class="mt-5" method="POST" action="signIn">
+  <div class="mt-5" id="registerForm" >
 
       <fieldset class="form-group">
     <!--    <legend>Sign in</legend>-->
 
+        <div class="form-group row">
+          <label class="form-control-label col-md-2 text-md-right col-form-label" for="owneremail">Email</label>
+          <div class="col-md-10">
+              <input class="form-control" type="text" id="emailReg" name="emailReg" placeholder="Email">
+          </div>
+        </div><!-- form-group -->
+
         <div class="form-group row ">
           <label class="form-control-label text-md-right col-md-2 col-form-label" for="ownerlogin">Login</label>
           <div class="col-md-10">
-              <input class="form-control" type="text" name= "login" id="login" placeholder="Login">
+              <input class="form-control" type="text" id="loginReg" name="loginReg" placeholder="Login">
           </div>
         </div><!-- form-group -->
 
         <div class="form-group row">
           <label class="form-control-label col-md-2 text-md-right col-form-label" for="ownerpassword">Password</label>
           <div class="col-md-10">
-              <input class="form-control" type="text" name="password" id="password" placeholder="Password">
+              <input class="form-control" type="text" id="passwordReg" name="passwordReg" placeholder="Password">
           </div>
         </div><!-- form-group -->
 
         <div class="form-group row" id="btnSign">
             <div class="offset-md-2 col-md-10">
-                <button class="btn btn-primary" type="submit">Sign in</button>
+                <button class="btn btn-primary" id="register">Registrate</button>
             </div>
         </div>
       </fieldset><!-- fieldset -->
-    </form>
+    </div>
 </div><!-- content container -->
 
-<script src="resources/js/jquery.slim.min.js"></script>
+
+<script src="resources/js/jquery-3.3.1.min.js"></script>
 <script src="resources/js/tether.min.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>
-<script src="resources/js/script.js"></script>
+
+<script id="registerScript" src="resources/js/registration.js"></script>
 
 
 </body>

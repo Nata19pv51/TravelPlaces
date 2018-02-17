@@ -68,10 +68,39 @@ public class JDBCDisplayNoteDao implements IDisplayNoteDao {
     }
 
     @Override
-    public void update(DisplayNote entity) throws Exception {
+    public void update(DisplayNote note) throws Exception {
+        String URL = "jdbc:mysql://localhost/Travel";
+        String USER  = "root";
 
+        String query =  "UPDATE " + Text.TEXT_TABLE + " SET " + Text.TEXT + " = ?" +
+                " WHERE " + Text.ID_NOTE + " = ?";
+        try (Connection connection = DriverManager.getConnection(URL, USER, "");
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, note.getText());
+            preparedStatement.setInt(2, note.getNoteId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
-
+//    List<JDBCDisplayNote> notes = new ArrayList<>();
+//        try (Connection connection = DriverManager.getConnection(URL, USER, "");
+//    Statement ps = connection.createStatement();
+//    ResultSet resultSet = ps.executeQuery(Query.findAllNotesByUserId(userId))) {
+//
+//        JDBCDisplayNote note;
+//        while (resultSet.next()) {
+//            note = new JDBCDisplayNote();
+//            note.setUserId(userId);
+//            note.setNoteId(resultSet.getInt("id_note"));
+//            note.setText(resultSet.getString("text"));
+//            note.setCoordination(resultSet.getDouble("coordinate"));
+//            note.setTime(resultSet.getLong("dateCreation"));
+//            notes.add(note);
+//        }
+//    } catch (SQLException e) {
+//        throw new RuntimeException(e);
+//    }
     @Override
     public void delete(int id) {
 

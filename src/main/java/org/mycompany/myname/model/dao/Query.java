@@ -37,8 +37,8 @@ public class Query {
     }
 
     public static String findAllByIdNote(int id){
-        return "SELECT " + NotePhoto.URL_PHOTO + " FROM " +
-                NotePhoto.PHOTO_TABLE + " WHERE " + NotePhoto.ID_NOTE + " = " + id;
+        return "SELECT " + DisplayNote.TEXT + " FROM " +
+                 DisplayNote.TEXT_TABLE + " WHERE " + DisplayNote.ID_NOTE + " = " + id;
     }
 
     public static String findAllNotesByUserId(int id){
@@ -73,9 +73,9 @@ public class Query {
         return "SELECT * FROM " + table + " WHERE " + parameter + " = \"" + value + "\";";
     }
 
-    public String findUserByParameters(String login, String password){
+    public static String findUserByParameters(String login, String password){
         return "SELECT * FROM " + User.USER_TABLE + " WHERE login = \"" + login
-                + "\" AND password = \"" + password + "\";";
+                + "\" AND password = \"" + password + "\"";
 
     }
 }

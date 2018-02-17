@@ -7,22 +7,37 @@
 
   <servlet>
     <servlet-name>SignInServlet</servlet-name>
-    <servlet-class>org.mycompany.myname.controller.SignInServlet</servlet-class>
+    <servlet-class>org.mycompany.myname.controller.Authentification.SignInServlet</servlet-class>
   </servlet>
 
   <servlet>
     <servlet-name>NotesServlet</servlet-name>
-    <servlet-class>org.mycompany.myname.controller.NotesServlet</servlet-class>
+    <servlet-class>org.mycompany.myname.controller.Notes.NotesServlet</servlet-class>
   </servlet>
 
   <servlet>
     <servlet-name>LoadServlet</servlet-name>
-    <servlet-class>org.mycompany.myname.controller.LoadServlet</servlet-class>
+    <servlet-class>org.mycompany.myname.controller.Notes.LoadServlet</servlet-class>
   </servlet>
 
   <servlet>
     <servlet-name>EditText</servlet-name>
-    <servlet-class>org.mycompany.myname.controller.EditText</servlet-class>
+    <servlet-class>org.mycompany.myname.controller.Notes.EditText</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>ReplacedText</servlet-name>
+    <servlet-class>org.mycompany.myname.controller.Notes.ReplacedText</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>RegisteredServlet</servlet-name>
+    <servlet-class>org.mycompany.myname.controller.Authentification.RegisteredServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>HomePageServlet</servlet-name>
+    <servlet-class>org.mycompany.myname.controller.Authentification.HomePageServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
@@ -44,5 +59,22 @@
     <servlet-name>EditText</servlet-name>
     <url-pattern>/editTextServlet</url-pattern>
   </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ReplacedText</servlet-name>
+    <url-pattern>/replacedText</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>RegisteredServlet</servlet-name>
+    <url-pattern>/registeredServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>HomePageServlet</servlet-name>
+    <url-pattern>/homePageServlet</url-pattern>
+  </servlet-mapping>
+
+
 
 </web-app>

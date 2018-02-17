@@ -86,6 +86,29 @@ public class JDBCDisplayNote{
         return notes;
     }
 
+    static public JDBCDisplayNote getNoteByID(int noteId) {
+        String URL = "jdbc:mysql://localhost/Travel";
+        String USER  = "root";
+
+        JDBCDisplayNote note = new JDBCDisplayNote();
+        try (Connection connection = DriverManager.getConnection(URL, USER, "");
+             Statement ps = connection.createStatement();
+             ResultSet resultSet = ps.executeQuery(Query.findAllByIdNote(noteId))) {
+
+            while (resultSet.next()) {
+                //note.setUserId(userId);
+//                note.setNoteId(resultSet.getInt("id_note"));
+                note.setText(resultSet.getString("text"));
+//                note.setCoordination(resultSet.getDouble("coordinate"));
+//                note.setTime(resultSet.getLong("dateCreation"));
+                //notes.add(note);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return note;
+    }
+
     public static void main(String[] args){
         List<JDBCDisplayNote> nodes =  JDBCDisplayNote.getDisplayNotesByUserID(1);
         Gson gson = new Gson();
