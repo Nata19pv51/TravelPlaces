@@ -89,24 +89,28 @@ public class JDBCDisplayNote{
     static public JDBCDisplayNote getNoteByID(int noteId) {
         String URL = "jdbc:mysql://localhost/Travel";
         String USER  = "root";
-
-        JDBCDisplayNote note = new JDBCDisplayNote();
+        String query = "SELECT note.id_note, note.dateCreation, textnode.text FROM note JOIN textnode " +
+                "ON note.id_note=textnode.id_note" +
+                " WHERE note.id_note=" + noteId;
         try (Connection connection = DriverManager.getConnection(URL, USER, "");
              Statement ps = connection.createStatement();
-             ResultSet resultSet = ps.executeQuery(Query.findAllByIdNote(noteId))) {
+             //PreparedStatement ps = connection.prepareStatement(query);
+             ResultSet resultSet = ps.executeQuery(query)){
+             //ResultSet resultSet = ps.executeQuery()) {
 
-            while (resultSet.next()) {
-                //note.setUserId(userId);
-//                note.setNoteId(resultSet.getInt("id_note"));
+            JDBCDisplayNote note = new JDBCDisplayNote();
+            if (resultSet.next()) {
+                note.setNoteId(resultSet.getInt("id_note"));
+                note.setTime(resultSet.getLong("dateCreation"));
                 note.setText(resultSet.getString("text"));
 //                note.setCoordination(resultSet.getDouble("coordinate"));
-//                note.setTime(resultSet.getLong("dateCreation"));
                 //notes.add(note);
+                return note;
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return note;
+        return null;
     }
 
     public static void main(String[] args){

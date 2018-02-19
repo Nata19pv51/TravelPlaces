@@ -40,6 +40,12 @@
     <servlet-class>org.mycompany.myname.controller.Authentification.HomePageServlet</servlet-class>
   </servlet>
 
+
+  <servlet>
+    <servlet-name>OneNoteServlet</servlet-name>
+    <servlet-class>org.mycompany.myname.controller.Notes.OneNoteServlet</servlet-class>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>SignInServlet</servlet-name>
     <url-pattern>/signIn</url-pattern>
@@ -75,6 +81,10 @@
     <url-pattern>/homePageServlet</url-pattern>
   </servlet-mapping>
 
+  <servlet-mapping>
+    <servlet-name>OneNoteServlet</servlet-name>
+    <url-pattern>/getOneNoteServlet</url-pattern>
+  </servlet-mapping>
 
 
 </web-app>

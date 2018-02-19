@@ -1,12 +1,14 @@
 $("document").ready(function () {
     $("#notes").click(loadData);
+
     console.log("Click notes");
 });
 
 function loadData() {
     console.log("Load");
     $('#homeInformation').remove();
-    $('#notes').prop("disabled", true);
+    //$('#notes').prop("disabled", false);
+
     $.ajax("servletInNotes",
         {
             success: setNotesContent,
@@ -19,27 +21,19 @@ function setNotesContent(data, status, jqxhr) {
     console.log(data)
     data = JSON.parse(data)
     var info = $("#div")
-//    info.append(
-//        "<div class=\"text-center mb-5\" id=\"searcharea\">" +
-//            "<div>" +
-//                "<label for=\"search\">Live Search</label>" +
-//                "<p>Enter the info about note</p>" +
-//                "<input type=\"search\" name=\"search\" id=\"search\" placeholder=\"Info\"/>" +
-//            "</div>" +
-//        "</div>");
     $("header").hide();
     $("body").css({"background-image":"url(resources/images/Paris.jpg",
                   "background-repeat":"no-repeat",
                   "background-size":"cover"});
 
     var noteList = $("<form class=\"mt-5\" id=\"listNotes\" method=\"GET\" action=\"editTextServlet\">" +
-                        "<button class=\"btn m-2 btn-primary\" id=\"delete\">Add new</button>" +
+                        "<button class=\"btn m-2 btn-primary\" id=\"add\">Add new</button>" +
                      "</form>");
     data.forEach(function (item, i, data) {
         noteList.append(
                         "<div class=\"divNotes mb-2\">" +
-                            "<input type=\"hidden\" name=\"idNote\" value=\"" + item.noteId + "\"/>" +
-                                "<h4 class=\"col-sm-4\">" + item.time + "</h4>" +
+                            "<input type=\"hidden\" class=\"idNote\" name=\"idNote\" value=\"" + item.noteId + "\"/>" +
+                                "<h4 class=\"col-sm-4 timeNote\">" + item.time + "</h4>" +
                             "<div class=\"textNote\" name=\"textNote\">" + item.text + "</div>" +
                         "</div>"
                      );
@@ -49,16 +43,21 @@ function setNotesContent(data, status, jqxhr) {
     info.append(noteList);
 //#FFE4C4
     $("#insert_div").html(info);
+
     $(".divNotes").css({"background":"#B0E0E6",
                        "border-color":"#4682B4",
                        "border-style":"solid",
                        "border-radius":"8px",
                        "padding":"5px"});
 
+//    $("#notes").css({
+//                       "pointer-events":"none", /* делаем ссылку некликабельной */
+//                       "cursor":"default",  /* устанавливаем курсор в виде стрелки */
+//                       "color":"#999" /* цвет текста для нективной ссылки */
+//                      })
     //$("#delete").css('background', '#008000');
     $(".textNote").dblclick(function() {
         $(this).replaceWith(
-                //"<textarea class='textNote'>" + $(this).html() + "</textarea>" +
                 "<div id=\"replaceText\">" +
                     "<input type=\"text\" class=\"textNote\" name=\"textNote\" value=\"" + $(this).html() + "\">" +
                         "<div class=\"input-group\">" +
@@ -84,21 +83,36 @@ function setNotesContent(data, status, jqxhr) {
                         data = JSON.parse(data);
                         $("#replaceText").replaceWith("<div class=\"textNote\" name=\"textNote\">" + data.text + "</div>")
                    }
-//        var text = $(this).html();
-//        $("#replaceText").replaceWith("<div class=\"textNote\" name=\"textNote\">" + text + "</div>")
     });
 
-                          //        function(){
-                          //            console.log("Click");
-                          //            $("#replaceText").replaceWith(
-                          //                "<div class=\"textNote\" name=\"textNote\">" + text + "</div>"
-                          //            );
-                          //            console.log("replace");
-                          //        }
-
-
-
-
+    $(".divNotes").click(getNote);
+    function getNote(){
+        console.log("Click One Note");
+       $.ajax(
+       {
+           url: "getOneNoteServlet",
+           success: oneNote,
+           type: "POST",
+           dataType: "text",
+           data: {"id": $(".idNote").val()}
+       });
+    }
+    function oneNote(data, status, jqxhr){
+        console.log("oneNote function");
+       $("#div").empty();
+       data = JSON.parse(data);
+       var info = $("#div");
+       var noteList = $("<form class=\"mt-5\" id=\"listNotes\" method=\"GET\" action=\"editTextServlet\"></form>");
+       noteList.append(
+           "<div class=\"divNotes mb-2\">" +
+               "<input type=\"hidden\" class=\"idNote\" name=\"idNote\" value=\"" + data.noteId + "\"/>" +
+                   "<h4 class=\"col-sm-4 timeNote\">" + data.time + "</h4>" +
+               "<div class=\"textNote\" name=\"textNote\">" + data.text + "</div>" +
+           "</div>");
+       console.log("Fill date and text of note");
+       info.append(noteList);
+       $("#insert_div").html(info);
+    }
 }
 
 
