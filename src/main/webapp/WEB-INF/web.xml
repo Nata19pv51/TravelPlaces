@@ -46,6 +46,21 @@
     <servlet-class>org.mycompany.myname.controller.Notes.OneNoteServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>LoadRoutesServlet</servlet-name>
+    <servlet-class>org.mycompany.myname.controller.Routes.LoadRoutesServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>CreateNewRouteServlet</servlet-name>
+    <servlet-class>org.mycompany.myname.controller.Routes.CreateNewRouteServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>AllRoutesServlet</servlet-name>
+    <servlet-class>org.mycompany.myname.controller.Routes.AllRoutesServlet</servlet-class>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>SignInServlet</servlet-name>
     <url-pattern>/signIn</url-pattern>
@@ -86,5 +101,19 @@
     <url-pattern>/getOneNoteServlet</url-pattern>
   </servlet-mapping>
 
+  <servlet-mapping>
+    <servlet-name>LoadRoutesServlet</servlet-name>
+    <url-pattern>/loadRoutesServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>CreateNewRouteServlet</servlet-name>
+    <url-pattern>/newRouteServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>AllRoutesServlet</servlet-name>
+    <url-pattern>/allRoutesServlet</url-pattern>
+  </servlet-mapping>
 
 </web-app>

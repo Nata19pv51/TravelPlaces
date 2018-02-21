@@ -1,6 +1,7 @@
 package org.mycompany.myname.controller.Notes;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import org.mycompany.myname.model.dao.implement.JDBCDisplayNote;
 import org.mycompany.myname.model.entity.Note;
 
 import javax.servlet.RequestDispatcher;
@@ -15,8 +16,14 @@ import java.util.List;
 public class NotesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
-        RequestDispatcher rd=getServletContext().getRequestDispatcher("/WEB-INF/notes.jsp");
-        rd.forward(httpServletRequest,httpServletResponse);
+        List<JDBCDisplayNote> nodes =  JDBCDisplayNote.getDisplayNotesByUserID(1);
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(nodes);
+        System.out.println(jsonString);
+        httpServletResponse.getWriter().print(jsonString);
+
+        //        RequestDispatcher rd=getServletContext().getRequestDispatcher("/WEB-INF/Notes/notes.jsp");
+//        rd.forward(httpServletRequest,httpServletResponse);
 
 //        FindAll getAll = new FindAll();
 //        List<Note> noteList = getAll.getNote(1);

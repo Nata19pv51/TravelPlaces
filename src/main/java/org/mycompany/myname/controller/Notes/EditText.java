@@ -27,20 +27,21 @@ public class EditText extends HttpServlet {
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
         String text = httpServletRequest.getParameter("textNote");
         String id_str = httpServletRequest.getParameter("idNote");
-        DisplayNote note = new DisplayNote();
+        JDBCDisplayNote note = new JDBCDisplayNote();
+        //DisplayNote note = new DisplayNote();
         int id = Integer.parseInt(id_str);
         idText = id;
         note.setNoteId(id);
         note.setText(text);
-        JDBCDisplayNoteDao jdbcDisplayNoteDao = new JDBCDisplayNoteDao();
+        //JDBCDisplayNoteDao jdbcDisplayNoteDao = new JDBCDisplayNoteDao();
         try {
-            jdbcDisplayNoteDao.update(note);
+            note.update(note);
 
-//            JDBCDisplayNote dnote = JDBCDisplayNote.getNoteByID(id);
-//            Gson gson = new Gson();
-//            String jsonString = gson.toJson(dnote);
-//            System.out.println(jsonString);
-//            httpServletResponse.getWriter().print(jsonString);
+            JDBCDisplayNote dnote = JDBCDisplayNote.getNoteByID(id);
+            Gson gson = new Gson();
+            String jsonString = gson.toJson(dnote);
+            System.out.println(jsonString);
+            httpServletResponse.getWriter().print(jsonString);
 
         } catch (Exception e) {
             e.printStackTrace();

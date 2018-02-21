@@ -14,14 +14,39 @@ public class ReplacedText extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
-        EditText editText = new EditText();
-        int id = editText.getIdText();
+        String textNote = httpServletRequest.getParameter("text");
+        String id_str = httpServletRequest.getParameter("id");
+        JDBCDisplayNote note = new JDBCDisplayNote();
+        //DisplayNote note = new DisplayNote();
+        int id = Integer.parseInt(id_str);
+        //idText = id;
+        note.setNoteId(id);
+        note.setText(textNote);
+        //JDBCDisplayNoteDao jdbcDisplayNoteDao = new JDBCDisplayNoteDao();
+        try {
+            note.update(note);
+            note.getNoteByID(id);
+            //JDBCDisplayNote dnote = JDBCDisplayNote.getNoteByID(id);
+            Gson gson = new Gson();
+            String jsonString = gson.toJson(note);
+            System.out.println(jsonString);
+            httpServletResponse.getWriter().print(jsonString);
 
-        JDBCDisplayNote dnote =  JDBCDisplayNote.getNoteByID(id);
-        Gson gson = new Gson();
-        String jsonString = gson.toJson(dnote);
-        System.out.println(jsonString);
-        httpServletResponse.getWriter().print(jsonString);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+
+        //        EditText editText = new EditText();
+//        int id = editText.getIdText();
+//
+//        JDBCDisplayNote dnote =  JDBCDisplayNote.getNoteByID(id);
+//        Gson gson = new Gson();
+//        String jsonString = gson.toJson(dnote);
+//        System.out.println(jsonString);
+//        httpServletResponse.getWriter().print(jsonString);
 //
 //        String text = httpServletRequest.getParameter("textNote");
 //        String id_str = httpServletRequest.getParameter("idNote");

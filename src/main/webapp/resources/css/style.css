@@ -3,4 +3,10 @@
     float: none;
     vertical-align: middle;
 }
-
+.divNotes{
+    background: #B0E0E6,
+    border-color: #4682B4,
+    border-style: solid,
+    border-radius: 8px,
+    padding: 5px
+    }

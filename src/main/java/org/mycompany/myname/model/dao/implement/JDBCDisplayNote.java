@@ -86,6 +86,21 @@ public class JDBCDisplayNote{
         return notes;
     }
 
+    public void update(JDBCDisplayNote note) throws Exception {
+        String URL = "jdbc:mysql://localhost/Travel";
+        String USER  = "root";
+
+        String query =  "UPDATE textnode SET text = ? WHERE id_note = ?";
+        try (Connection connection = DriverManager.getConnection(URL, USER, "");
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, note.getText());
+            preparedStatement.setInt(2, note.getNoteId());
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     static public JDBCDisplayNote getNoteByID(int noteId) {
         String URL = "jdbc:mysql://localhost/Travel";
         String USER  = "root";

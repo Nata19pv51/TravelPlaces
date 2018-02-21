@@ -12,16 +12,9 @@
   <title>Travel Places</title>
   <link rel="icon" href="resources/images/3.png" type="image/x-icon">
 </head>
-<body>
-
-<header class="jumbotron jumbotron-fluid mb-0 img-fluid" style="background-image: url(resources/images/logo1_4.png); background-repeat: no-repeat; background-size: cover;">
-   <div class="container container-fluid">
-       <div class="row mb-4">
-           <div class="col-md-7 vcenter display-2 font-weight-bold text-white">Travel Places</div>
-       </div>
-       <p class="lead text-white">Follow the assigned route on the way to your goal</p>
-   </div>
-</header>
+<body style="background-image":"url(resources/images/Paris.jpg",
+            "background-repeat":"no-repeat",
+            "background-size":"cover">
 
 <nav class="navbar navbar-inverse navbar-toggleable-sm" style="background-color: #C71585">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
@@ -31,8 +24,8 @@
     <div class="collapse navbar-collapse" id="myContent">
       <div class="navbar-nav mr-auto">
         <a class="nav-item nav-link active" href="#">Home</a>
-        <a class="nav-item nav-link" href="#">Routes</a>
-        <a class="nav-item nav-link" href="#">Notes</a>
+        <a class="nav-item nav-link" id="routes" href="loadRoutesServlet">Routes</a>
+        <a class="nav-item nav-link" id="notes" href="servletInNotes">Notes</a>
         <a class="nav-item nav-link" href="#">Gallery</a>
         <a class="nav-item nav-link" href="#">Map</a>
       </div><!-- navbar-nav -->
@@ -50,16 +43,14 @@
 </nav>
 
 
-<div class="container">
+<div id="insert_div">
+    <div class="container center-block" id="div"></div>
+</div>
 
-
-
-</div><!-- content container -->
-
-<script src="resources/js/jquery.slim.min.js"></script>
+<script src="resources/js/jquery-3.3.1.min.js"></script>
 <script src="resources/js/tether.min.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>
-<script src="resources/js/scripts.js"></script>
+<script src="resources/js/loadNotes.js"></script>
 
 </body>
 </html>

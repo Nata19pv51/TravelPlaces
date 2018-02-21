@@ -18,7 +18,7 @@ public class SignInServlet extends HttpServlet {
 
         JDBCUser user = new JDBCUser();
         if(user.findByLoginPassword(login, password) == false){
-            RequestDispatcher rd=getServletContext().getRequestDispatcher("/WEB-INF/registration.jsp");
+            RequestDispatcher rd=getServletContext().getRequestDispatcher("/WEB-INF/Authantification/registration.jsp");
             rd.forward(httpServletRequest,httpServletResponse);
         }
         else {

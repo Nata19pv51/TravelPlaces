@@ -31,8 +31,8 @@
     <div class="collapse navbar-collapse" id="myContent">
       <div class="navbar-nav mr-auto">
         <a class="nav-item nav-link active" href="#">Home</a>
-        <a class="nav-item nav-link" href="#">Routes</a>
-        <a class="nav-item nav-link" id="notes" href="#">Notes</a>
+        <a class="nav-item nav-link" id="routes" href="loadRoutesServlet">Routes</a>
+        <a class="nav-item nav-link" id="notes" href="servletInNotes">Notes</a>
         <a class="nav-item nav-link" href="#">Gallery</a>
         <a class="nav-item nav-link" href="#">Map</a>
       </div><!-- navbar-nav -->
@@ -61,7 +61,7 @@
 <script src="resources/js/jquery-3.3.1.min.js"></script>
 <script src="resources/js/tether.min.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>
-<script src="resources/js/load.js"></script>
+
 
 </body>
 </html>

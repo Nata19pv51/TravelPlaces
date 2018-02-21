@@ -5,6 +5,8 @@ import org.mycompany.myname.model.dao.implement.JDBCDisplayNote;
 import org.mycompany.myname.model.dao.implement.JDBCDisplayNoteDao;
 import org.mycompany.myname.model.entity.DisplayNote;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,7 +16,7 @@ import java.util.List;
 public class LoadServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
-            throws IOException {
+            throws ServletException, IOException {
 //        httpServletResponse.getWriter().print("Hello from servlet");
 
 //        FindAll getAll = new FindAll();
@@ -29,11 +31,15 @@ public class LoadServlet extends HttpServlet {
 //        String jsonString = gson.toJson(notes);
 //        httpServletResponse.getWriter().print(jsonString);
 
-        List<JDBCDisplayNote> nodes =  JDBCDisplayNote.getDisplayNotesByUserID(1);
-        Gson gson = new Gson();
-        String jsonString = gson.toJson(nodes);
-        System.out.println(jsonString);
-        httpServletResponse.getWriter().print(jsonString);
+        RequestDispatcher rd=getServletContext().getRequestDispatcher("/WEB-INF/Notes/notes.jsp");
+        rd.forward(httpServletRequest,httpServletResponse);
+
+
+//        List<JDBCDisplayNote> nodes =  JDBCDisplayNote.getDisplayNotesByUserID(1);
+//        Gson gson = new Gson();
+//        String jsonString = gson.toJson(nodes);
+//        System.out.println(jsonString);
+//        httpServletResponse.getWriter().print(jsonString);
 
 
 
