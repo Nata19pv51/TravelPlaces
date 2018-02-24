@@ -1,17 +1,13 @@
 package org.mycompany.myname.model.dao.implement;
 
-import org.mycompany.myname.model.dao.Query;
-import org.mycompany.myname.model.entity.User;
-
 import java.sql.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
 public class JDBCDisplayRoutes {
     final public static String ROUTE_TABLE = "route";
     final public static String ID_ROUTE = "id_route";
-    final public static String NAME = "name";
+    final public static String TITLE = "name";
     final public static String DATE_CREATION = "dateCreation";
     final public static String ID_USER = "id_user";
 
@@ -56,7 +52,7 @@ public class JDBCDisplayRoutes {
     static public List<JDBCDisplayRoutes> getRoutesByUserID(int userId) {
         String URL = "jdbc:mysql://localhost/Travel";
         String USER  = "root";
-        String query = "SELECT " + ID_ROUTE + ", " + NAME + ", " + DATE_CREATION + ", " + ID_USER +
+        String query = "SELECT " + ID_ROUTE + ", " + TITLE + ", " + DATE_CREATION + ", " + ID_USER +
                        " FROM " + ROUTE_TABLE +
                        " WHERE " + ID_USER + " = " + userId;
 
@@ -70,7 +66,7 @@ public class JDBCDisplayRoutes {
                 route = new JDBCDisplayRoutes();
                 route.setUserId(userId);
                 route.setTime(resultSet.getLong(DATE_CREATION));
-                route.setName(resultSet.getString(NAME));
+                route.setName(resultSet.getString(TITLE));
                 route.setIdRoute(resultSet.getInt(ID_ROUTE));
                 routesList.add(route);
             }
@@ -84,9 +80,26 @@ public class JDBCDisplayRoutes {
         String URL = "jdbc:mysql://localhost/Travel";
         String USER  = "root";
         long curTime = System.currentTimeMillis();
-        String query =  "INSERT INTO " + ROUTE_TABLE + " (" + NAME + ", " + DATE_CREATION + ", " + ID_USER + ") VALUES (" +
-                        title + ", " + curTime + ", " + userId + ")";
-
+        String query =  "INSERT INTO " + ROUTE_TABLE + " (" + TITLE + ", " + DATE_CREATION + ", " + ID_USER + ") VALUES (\"" +
+                        title + "\", " + curTime + ", " + userId + ")";
+        try (Connection connection = DriverManager.getConnection(URL, USER, "");
+             PreparedStatement preparedStatement = connection.prepareStatement(query)){
+//             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS))
+            preparedStatement.executeUpdate();
+//            try (ResultSet generatedKeys = preparedStatement.getGeneratedKeys()) {
+//                JDBCDisplayRoutes route = new JDBCDisplayRoutes();
+//                if (generatedKeys.next()) {
+//                    route.setIdRoute(generatedKeys.getInt(1));
+//                    return route.getIdRoute();
+//                }
+//                else {
+//                    throw new SQLException("Creating user failed, no ID obtained.");
+//                }
+//            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 //// Хотите значение типа Date, с этим временем?
 //        Date curDate = new Date(curTime);
 //// Хотите строку в формате, удобном Вам?
@@ -94,11 +107,35 @@ public class JDBCDisplayRoutes {
 //// Хотите Date из строки, в которой дата с известным шаблоном?
 //        Date parsedDate = new SimpleDateFormat("dd.MM.yyyy").parse("16.04.2004");
 
+
+
+
+//        java.util.Date dt = new java.util.Date();
+//
+//        java.text.SimpleDateFormat sdf =
+//                new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//
+//        String currentTime = sdf.format(dt);
+
+    static public JDBCDisplayRoutes getRouteByID(int routeId) {
+        String URL = "jdbc:mysql://localhost/Travel";
+        String USER  = "root";
+        String query = "SELECT id_route, dateCreation, name FROM route" +
+                " WHERE id_route=" + routeId;
         try (Connection connection = DriverManager.getConnection(URL, USER, "");
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.executeUpdate();
+             Statement ps = connection.createStatement();
+             ResultSet resultSet = ps.executeQuery(query)){
+
+            JDBCDisplayRoutes route = new JDBCDisplayRoutes();
+            if (resultSet.next()) {
+                route.setIdRoute(resultSet.getInt("id_route"));
+                route.setTime(resultSet.getLong("dateCreation"));
+                route.setName(resultSet.getString("name"));
+                return route;
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return null;
     }
 }

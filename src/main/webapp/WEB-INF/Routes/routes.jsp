@@ -50,13 +50,11 @@
 </nav>
 
 
-<div class="container">
+<div id="insert_div">
+    <div class="container center-block" id="div"></div>
+</div>
 
-
-
-</div><!-- content container -->
-
-<script src="resources/js/jquery.slim.min.js"></script>
+<script src="resources/js/jquery-3.3.1.min.js"></script>
 <script src="resources/js/tether.min.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>
 <script src="resources/js/loadRoutes.js"></script>

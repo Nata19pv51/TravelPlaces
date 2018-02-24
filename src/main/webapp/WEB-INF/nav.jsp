@@ -1,17 +1,3 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-
-  <link rel="stylesheet" href="resources/css/bootstrap.min.css">
-
-
-  <title>Travel Places</title>
-  <link rel="icon" href="resources/images/3.png" type="image/x-icon">
-</head>
 <body>
 
 <nav class="navbar navbar-inverse navbar-toggleable-sm" style="background-color: #C71585">
@@ -39,16 +25,3 @@
         </div>
     </form>
 </nav>
-
-<div id="insert_div">
-    <div class="container center-block" id="contener_div"></div>
-</div>
-
-<script src="resources/js/jquery-3.3.1.min.js"></script>
-<script src="resources/js/tether.min.js"></script>
-<script src="resources/js/bootstrap.min.js"></script>
-<script src="resources/js/loadNotes.js"></script>
-
-
-</body>
-</html>

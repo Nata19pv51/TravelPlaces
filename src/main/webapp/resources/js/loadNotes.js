@@ -14,28 +14,27 @@ $("document").ready(
                    type: "GET",
                    dataType: "text"
                });
-    });
+    }
+);
     function setNotesContent(data, status, jqxhr) {
         console.log(data)
         data = JSON.parse(data)
-        var info = $("#div")
+        var info = $("#contener_div")
         $("header").hide();
-        $("#div").empty();
+        $("#contener_div").empty();
         $("body").css({"background-image":"url(resources/images/Paris.jpg",
                       "background-repeat":"no-repeat",
                       "background-size":"cover"});
-        var noteList = $("<form class=\"mt-5\" id=\"listNotes\" method=\"GET\" action=\"editTextServlet\">" +
-                            "<button class=\"btn m-2 btn-primary\" id=\"add\">Add new</button>" +
-                         "</form>");
+        var noteList = $("<div></div>");
         data.forEach(function (item, i, data) {
-            noteList.append(
-                            "<div class=\"divNotes mb-2\">" +
-                                "<input type=\"hidden\" class=\"idNote\" name=\"idNote\" value=\"" + item.noteId + "\"/>" +
-                                    "<h4 class=\"col-sm-4 timeNote\">" + item.time + "</h4>" +
-                                "<div class=\"textNote\" name=\"textNote\">" + item.text + "</div>" +
-                            "</div>"
-                         );
-            console.log("Fill date and text of note");
+            var noteBox = $("<div class=\'divNotes mb-2\'> </div>");
+            noteBox.append($("<input type=\"hidden\" class=\"idNote\" name=\"idNote\" value=\"" + item.noteId + "\"/>"))
+            noteBox.append($("<h4 class=\"col-sm-4 timeNote\">" + item.time + "</h4>"))
+            noteBox.append($("<div class=\"textNote\" name=\"textNote\">" + item.text + "</div>"))
+            var formBox = $("<form action=\"openOneNoteServlet\" method=\"get\"></form>")
+            formBox.append(noteBox)
+            noteList.append(formBox);
+            // console.log("Fill date and text of note");
         });
 
         info.append(noteList);
@@ -45,6 +44,31 @@ $("document").ready(
                                     "border-style":"solid",
                                     "border-radius":"8px",
                                     "padding":"5px"});
+        $(".divNotes").click(function(){
+            $(this).parent().submit()
+        })
+        // function getNote() {
+        //     console.log("dblclick One Note");
+            // $.ajax("openOneNoteServlet",
+            //     {
+            //         type: "GET",
+            //         dataType: "text",
+            //         data: { "id": $(".idNote").val() }
+            //     });
+            
+        // }
+        // $(".divNotes").click(function(){
+        //         console.log("dblclick One Note");
+        //         $.ajax("openOneNoteServlet",
+        //             {
+        //                 type: "GET",
+        //                 dataType: "text",
+        //                 data: { "id": $(".idNote").val() }
+        //             });
+                
+        //     })                 
+
+    }
     //#FFE4C4
         //$("#i
     //    $("#notes").css({
@@ -53,45 +77,11 @@ $("document").ready(
     //                       "color":"#999" /* цвет текста для нективной ссылки */
     //                      })
         //$("#delete").css('background', '#008000');
-        $(".textNote").dblclick(function() {
-            $(this).replaceWith(
-                    "<div id=\"replaceText\">" +
-                        "<input type=\"text\" class=\"textNote\" name=\"textNote\" value=\"" + $(this).html() + "\">" +
-                            "<div class=\"input-group\">" +
-                                "<span class=\"input-group-btn\">" +
-                                    "<button class=\"btn btn-info\" id=\"saveText\">Save</button>" +
-                                    "<button class=\"btn btn-info\">Cancel</button>" +
-                                "</span>" +
-                            "</div>");
-            $("#saveText").click(newData);
 
-            function newData() {
-               $('#saveText').prop("disabled", true);
-               $.ajax("replacedText",
-               {
-                   success: newtext,
-                   type: "GET",
-                   dataType: "text",
-                   data: {"id": $(".idNote").val(), "text": $(".textNote").val()}
-               });
-            }
-            function newtext(data, status, jqxhr) {
-                 data = JSON.parse(data);
-                 $("#replaceText").replaceWith("<div class=\"textNote\" name=\"textNote\">" + data.text + "</div>")
-            }
-        });
-//        $(".divNotes").click(getNote);
-//        function getNote(){
-//            console.log("Click One Note");
-//           $.ajax(
-//           {
-//               url: "getOneNoteServlet",
-//               success: oneNote,
-//               type: "POST",
-//               dataType: "text",
-//               data: {"id": $(".idNote").val()}
-//           });
-//        }
+
+
+
+
 //        function oneNote(data, status, jqxhr){
 //            console.log("oneNote function");
 //           $("#div").empty();
@@ -113,7 +103,7 @@ $("document").ready(
 //                              "border-radius":"8px",
 //                              "padding":"5px"});
 //        }
-    }
+
 //}
 //);
 
