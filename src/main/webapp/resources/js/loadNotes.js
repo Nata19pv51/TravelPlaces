@@ -25,7 +25,9 @@ $("document").ready(
         $("body").css({"background-image":"url(resources/images/Paris.jpg",
                       "background-repeat":"no-repeat",
                       "background-size":"cover"});
-        var noteList = $("<div></div>");
+        var noteList = $("<div class=\"mt-5\" id=\"listNotes\">" +
+                             "<button class=\"btn m-2 btn-primary\" id=\"addNote\">Add new</button>" +
+                         "</div>");
         data.forEach(function (item, i, data) {
             var noteBox = $("<div class=\'divNotes mb-2\'> </div>");
             noteBox.append($("<input type=\"hidden\" class=\"idNote\" name=\"idNote\" value=\"" + item.noteId + "\"/>"))
@@ -34,7 +36,13 @@ $("document").ready(
             var formBox = $("<form action=\"openOneNoteServlet\" method=\"get\"></form>")
             formBox.append(noteBox)
             noteList.append(formBox);
-            // console.log("Fill date and text of note");
+            console.log("Fill date and text of note");
+            
+            // var noteBox = $("<div class=\'divNotes mb-2\'> </div>");
+            // noteBox.append($("<input type=\"hidden\" class=\"idNote\" name=\"idNote\" value=\"" + item.noteId + "\"/>"))
+            // noteBox.append($("<h4 class=\"col-sm-4 timeNote\">" + item.time + "</h4>"))
+            // noteBox.append($("<div class=\"textNote\" name=\"textNote\">" + item.text + "</div>"))
+            // noteList.append(noteBox);
         });
 
         info.append(noteList);
@@ -44,9 +52,72 @@ $("document").ready(
                                     "border-style":"solid",
                                     "border-radius":"8px",
                                     "padding":"5px"});
+        $("#addNote").click(addInput);
         $(".divNotes").click(function(){
             $(this).parent().submit()
         })
+        function addInput() {
+            $("#addNote").replaceWith("<div id=\"addDiv\">" +
+                                            "<input class=\"form-control\" type=\"text\" id=\"textNote\" name=\"textNote\" placeholder=\"Text\">" +
+                                            "<input class=\"form-control\" type=\"text\" id=\"coordinate\" name=\"coordinate\" placeholder=\"coordinate\">" +
+                                            "<p id=\"photo\">Photo: </p>" +
+                                            "<button class=\"btn m-2 btn-primary addRoute\" id=\"addNew\">Add note</button>" +
+                                      "</div>");
+
+            $("#addNew").click(addNewNote);
+        }
+
+        function addNewNote() {
+            $.ajax({url: "newNoteServlet",
+                    success: displayNewNote,
+                    type: "GET",
+                    dataType: "text",
+                    data: {"text": $("#textNote").val(), "coordinate": $("#coordinate").val(), "photo": $("#photo").val()}
+            });
+        }
+
+        function displayNewNote(data, status, jqxhr) {
+            data = JSON.parse(data);
+            $("#addDiv").replaceWith(
+                "<button class=\"btn m-2 btn-primary\" id=\"add\">Add new</button>" +
+                "<div class=\"divNotes mb-2\">" +
+                "<input type=\"hidden\" class=\"idNote\" name=\"idNote\" value=\"" + data.noteId + "\"/>" +
+                "<h4 class=\"col-sm-4 timeNote\">" + data.time + "</h4>" +
+                "<div class=\"textNote\" name=\"textNote\">" + data.text + "</div>" +
+                "</div>");
+
+            $(".divNotes").css({"background":"#B0E0E6",
+                                "border-color":"#4682B4",
+                                "border-style":"solid",
+                                "border-radius":"8px",
+                                "padding":" 5px"});
+        }
+
+        
+
+        //определить по элементу его номер в выборке:
+        // var $set = $('ul li');
+        // $('ul').on('click', 'li', function () {
+        //     var n=$set.index(this);    
+        //     console.log(n);
+        // });
+
+        // var $set = $("#listNotes .divNotes");
+        // var element = $(".divNotes")
+        // $("#listNotes").on('click', element, function () {
+        //     var n=$set.index(this);    
+        //     console.log(n);
+        // });
+        // $(".divNotes").click(openNote);
+        // function openNote() {
+        //     $.ajax({url: "oneNote.jsp",
+        //             type: "GET",
+        //             dataType: "text",
+        //             data: {"idNote": $(".idNote").val()}
+        //     });
+        // }
+    }
+
         // function getNote() {
         //     console.log("dblclick One Note");
             // $.ajax("openOneNoteServlet",
@@ -68,7 +139,7 @@ $("document").ready(
                 
         //     })                 
 
-    }
+
     //#FFE4C4
         //$("#i
     //    $("#notes").css({

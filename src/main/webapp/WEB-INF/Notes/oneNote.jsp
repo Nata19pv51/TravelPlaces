@@ -44,13 +44,25 @@
 
 
 <div id="insert_div">
-    <div class="container center-block" id="div"></div>
+    <div class="container center-block" id="div">
+        <div class="divNotes mb-2">
+            <input type="hidden" class="idNote" name="idNote" value="<%= request.getParameter("idNote") %>"/>
+            <p>HELLO <%= request.getParameter("idNote") %> </p>
+        </div>
+
+
+        <!-- <p>Dynamic page</p>
+        <p>Time <%= new java.util.Date() %></p>
+        <p>JSP Scriptlets <% for(int i = 0; i<6; i++){out.println("<br/> Number: " + i);}%></p>
+        <p>Value from request: <%= request.getHeader("User-Agent") %></p>
+        <p>Value from servlet: <%= request.getAttribute("name") %></p> -->
+    </div>
 </div>
 
 <script src="resources/js/jquery-3.3.1.min.js"></script>
 <script src="resources/js/tether.min.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>
-<script src="resources/js/loadOneNote.js"></script>
+<!-- <script src="resources/js/loadOneNote.js"></script> -->
 
 </body>
 </html>
