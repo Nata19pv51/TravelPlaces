@@ -66,6 +66,11 @@
     <servlet-class>org.mycompany.myname.controller.Notes.OpenOneNoteServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>CreateNewNoteServlet</servlet-name>
+    <servlet-class>org.mycompany.myname.controller.Notes.CreateNewNoteServlet</servlet-class>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>SignInServlet</servlet-name>
     <url-pattern>/signIn</url-pattern>
@@ -125,5 +130,11 @@
     <servlet-name>OpenOneNoteServlet</servlet-name>
     <url-pattern>/openOneNoteServlet</url-pattern>
   </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>CreateNewNoteServlet</servlet-name>
+    <url-pattern>/newNoteServlet</url-pattern>
+  </servlet-mapping>
+
 
 </web-app>
