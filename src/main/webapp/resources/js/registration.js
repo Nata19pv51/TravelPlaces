@@ -1,10 +1,7 @@
 $("document").ready(function () {
-    console.log("Natasha");
     $("#register").click(getData);
-
 });
 function getData() {
-    console.log("Inna");
     $.ajax(
         {
             url: "registeredServlet",
@@ -16,10 +13,8 @@ function getData() {
 }
 function registerUser(data, status, jqxhr) {
     data = JSON.parse(data);
-    console.log(data);
     if(data == "no"){
         $("#registerForm").replaceWith("Enter another login!");
-        console.log("Hello");
     }
     else{
         $("#registerForm").replaceWith("You have successfully registered!");
@@ -30,9 +25,7 @@ function registerUser(data, status, jqxhr) {
                                        "<a class=\"nav-item nav-link\" href=\"#\">Gallery</a>" +
                                        "<a class=\"nav-item nav-link\" href=\"#\">Map</a>" +
                                    "</div><!-- navbar-nav -->");
-        console.log("Word");
         $('#registerScript').replaceWith("<script id=\"loadScript\" src=\"resources/js/load.js\"></script>");
-        console.log("Nidialkova");
     }
 
 }
