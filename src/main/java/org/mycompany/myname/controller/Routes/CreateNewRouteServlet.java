@@ -13,12 +13,12 @@ public class CreateNewRouteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
         String title = httpServletRequest.getParameter("title");
+        int maxID;
         JDBCDisplayRoutes route = new JDBCDisplayRoutes();
-        //route.setName(title);
         try {
             route.create(title, 1);
-
-            JDBCDisplayRoutes newRoute = JDBCDisplayRoutes.getRouteByID(11);
+            maxID = route.getMaxID();
+            JDBCDisplayRoutes newRoute = JDBCDisplayRoutes.getRouteByID(maxID);
             Gson gson = new Gson();
             String jsonString = gson.toJson(newRoute);
             System.out.println(jsonString);

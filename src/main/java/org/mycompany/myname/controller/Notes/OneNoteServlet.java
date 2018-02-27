@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class OneNoteServlet extends HttpServlet {
     @Override
-    protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
+    protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse)
             throws ServletException, IOException {
         String idNote = httpServletRequest.getParameter("id");
 //        String time = httpServletRequest.getParameter("date");

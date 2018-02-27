@@ -53,7 +53,8 @@ public class Query {
 //                "WHERE " + TableParameters.Note.ID_USER + " = " + id;
         return "SELECT note.id_note, note.dateCreation, coordinate.coordinate, textnode.text " +
                 "FROM note JOIN coordinate ON note.id_note = coordinate.id_note " +
-                "JOIN textnode ON note.id_note = textnode.id_note WHERE note.id_user = " + id;
+                "JOIN textnode ON note.id_note = textnode.id_note WHERE note.id_user = " + id +
+                " ORDER BY note.dateCreation DESC";
     }
 
     public static String findObjectById(String table, int id){

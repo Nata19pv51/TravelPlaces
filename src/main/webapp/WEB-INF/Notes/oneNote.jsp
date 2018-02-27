@@ -47,7 +47,7 @@
     <div class="container center-block" id="div">
         <div class="divNotes mb-2">
             <input type="hidden" class="idNote" name="idNote" value="<%= request.getParameter("idNote") %>"/>
-            <p>HELLO <%= request.getParameter("idNote") %> </p>
+            
         </div>
 
 
@@ -62,7 +62,7 @@
 <script src="resources/js/jquery-3.3.1.min.js"></script>
 <script src="resources/js/tether.min.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>
-<!-- <script src="resources/js/loadOneNote.js"></script> -->
+<script src="resources/js/loadOneNote.js"></script>
 
 </body>
 </html>

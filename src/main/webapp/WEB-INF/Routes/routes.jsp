@@ -49,9 +49,11 @@
     </form>
 </nav>
 
-
-<div id="insert_div">
-    <div class="container center-block" id="div"></div>
+<div class="container">
+    <h2 class="mt-5">Routes</h2>
+    <div id="insert_div">
+        <div class="container center-block" id="div"></div>
+    </div>
 </div>
 
 <script src="resources/js/jquery-3.3.1.min.js"></script>

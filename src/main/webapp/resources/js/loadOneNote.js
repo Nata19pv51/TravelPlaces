@@ -1,56 +1,54 @@
-$("document").ready(function(){
-    loadNote();
-    $(".textNote").dblclick(editText);
-});
-
-function loadNote(){
+$("document").ready(function loadNote() {
     var info = $("#div");
-    $("body").css({"background-image":"url(resources/images/Paris.jpg",
-                  "background-repeat":"no-repeat",
-                  "background-size":"cover"});
-
-    $.ajax("getOneNoteServlet",
-        {
-            success: ,
-            type: "GET",
-            dataType: "text",
-            data: { "id": $(".idNote").val(), "text": $(".textNote").val() }
-        });              
-    var noteList = $("<form class=\"mt-5\" id=\"listNotes\" method=\"GET\" action=\"editTextServlet\">" +
-                        "<button class=\"btn m-2 btn-primary\" id=\"add\">Add new</button>" +
-                     "</form>");
-    data.forEach(function (item, i, data) {
-        noteList.append(
-                        "<div class=\"divNotes mb-2\">" +
-                            "<input type=\"hidden\" class=\"idNote\" name=\"idNote\" value=\"" + item.noteId + "\"/>" +
-                            "<h4 class=\"col-sm-4 timeNote\">" + item.time + "</h4>" +
-                            "<div class=\"textNote\" name=\"textNote\">" + item.text + "</div>" +
-                        "</div>"
-                     );
-        console.log("Fill date and text of note");
-        $(".divNotes").dblclick(getNote);
+    $("body").css({
+        "background-image": "url(resources/images/Paris.jpg",
+        "background-repeat": "no-repeat",
+        "background-size": "cover"
     });
 
-    info.append(noteList);
-    $("#insert_div").html(info);
+    $.ajax("showOneNoteServlet",
+        {
+            success: showOneNote,
+            type: "GET",
+            dataType: "text",
+            data: { "id": $(".idNote").val() }
+        })
+});
 
-}
+    
+function showOneNote(data, status, jqxhr) {
+    data = JSON.parse(data);
+    var note = $(".divNotes");
 
+    var time = data.time;
+    var date = new Date(time);
+    var month = date.getMonth()+1;
+    date = date.getDate() + '.' + month + '.' + date.getFullYear() +
+            '  ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
 
-
+    note.append("<a href=\"servletInNotes\" id=\"notes\" class=\"btn btn-success btn-sm m-2\">Return to the notes list</a>");
+    note.append("<a href=\"deleteNoteServlet\" id=\"deleteNote\" class=\"btn btn-success btn-sm m-2\">Delete note</a>");
+    note.append("<div class=\"text-muted text-small text-left col-sm-4 timeNote\"><p>" + date + "</p></div>");
+    note.append("<div class=\"textNote text-left\" name=\"textNote\">" + data.text + "</div>");
+    note.append("<div id=\"cordinateNote\" name=\"cordinateNote\">" + data.coordination + "</div>");
+    $(".textNote").dblclick(editText);
+    //$("#returnNotes").click();
+    $("#deleteNote").click();
+}  
 function editText() {
+    $(".textNote").prop("disabled", true);
+    var firstText = $(this).html();
     $(this).replaceWith(
         "<div id=\"replaceText\">" +
-        "<input type=\"text\" class=\"textNote\" name=\"textNote\" value=\"" + $(this).html() + "\">" +
+        "<input type=\"text\" class=\"textNote text-left\" name=\"textNote\" value=\"" + $(this).html() + "\">" +
         "<div class=\"input-group\">" +
-        "<span class=\"input-group-btn\">" +
-        "<button class=\"btn btn-info\" id=\"saveText\">Save</button>" +
-        "<button class=\"btn btn-info\">Cancel</button>" +
+        "<span class=\"input-group-btn row\">" +
+        "<button class=\"btn btn-info \" id=\"saveText\">Save</button>" +
+        "<button class=\"btn btn-info col-sm-offset-3\" id=\"cancelSaveText\">Cancel</button>" +
         "</span>" +
         "</div>");
-    $("#saveText").click(newData);
-
-    function newData() {
+    $("#saveText").click(newText);
+    function newText() {
         $('#saveText').prop("disabled", true);
         $.ajax("replacedText",
             {
@@ -62,6 +60,12 @@ function editText() {
     }
     function newtext(data, status, jqxhr) {
         data = JSON.parse(data);
-        $("#replaceText").replaceWith("<div class=\"textNote\" name=\"textNote\">" + data.text + "</div>")
+        $("#replaceText").replaceWith("<div class=\"textNote text-left\" name=\"textNote\">" + data.text + "</div>")
+    }
+
+    $("#cancelSaveText").click(cancelSave);
+    function cancelSave() {
+        $('#cancelSaveText').prop("disabled", true);
+        $("#replaceText").replaceWith("<div class=\"textNote text-left\" name=\"textNote\">" + firstText + "</div>")
     }
 }

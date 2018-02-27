@@ -48,13 +48,32 @@ public class JDBCDisplayRoutes {
         this.userId = userId;
     }
 
-
+    public int getMaxID(){
+        String URL = "jdbc:mysql://localhost/Travel";
+        String USER  = "root";
+        String query = "SELECT MAX(id_route) FROM route";
+        int maxID;
+        try (Connection connection = DriverManager.getConnection(URL, USER, "");
+             Statement ps = connection.createStatement();
+             ResultSet resultSet = ps.executeQuery(query)){
+            //JDBCDisplayNote note = new JDBCDisplayNote();
+            if(resultSet.next()){
+                maxID = resultSet.getInt("MAX(id_route)");
+                // note.setMaxID(resultSet.getInt("id_note"));
+                return maxID;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
     static public List<JDBCDisplayRoutes> getRoutesByUserID(int userId) {
         String URL = "jdbc:mysql://localhost/Travel";
         String USER  = "root";
         String query = "SELECT " + ID_ROUTE + ", " + TITLE + ", " + DATE_CREATION + ", " + ID_USER +
                        " FROM " + ROUTE_TABLE +
-                       " WHERE " + ID_USER + " = " + userId;
+                       " WHERE " + ID_USER + " = " + userId +
+                       " ORDER BY " + DATE_CREATION + " DESC";
 
         List<JDBCDisplayRoutes> routesList = new ArrayList<>();
         try (Connection connection = DriverManager.getConnection(URL, USER, "");
