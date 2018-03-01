@@ -71,6 +71,16 @@ function setNotesContent(data, status, jqxhr) {
             "<input class=\"form-control\" type=\"text\" id=\"textNote\" name=\"textNote\" placeholder=\"Text\">" +
             "<input class=\"form-control\" type=\"text\" id=\"coordinate\" name=\"coordinate\" placeholder=\"coordinate\">" +
             "<p id=\"photo\">Photo: </p>" +
+            "<div>" +
+            "<h3>Upload</h3>" +
+            "<form id=\"upload_form\" class=\"upload_box\" action=\"uploadPhotoServlet\" method=\"post\" enctype=\"multipart/form-data\">" +
+                "<input id=\"input_box\" type=\"file\" name=\"file\" />" +
+                "<br />" +
+                "<br />" +
+                "<input hidden=\"true\" id=\"submit_button\" type=\"submit\" value=\"Upload Image\" />" +
+            "</form>" +
+        "</div>" +
+        "<div id=\"images_box\">" +
             "<button class=\"btn m-2 btn-primary addRoute\" id=\"addNew\">Add note</button>" +
             "</div>");
 

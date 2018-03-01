@@ -76,6 +76,11 @@
     <servlet-class>org.mycompany.myname.controller.Notes.DeleteNoteServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>UploadPhotoServlet</servlet-name>
+    <servlet-class>org.mycompany.myname.controller.UploadPhotoServlet</servlet-class>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>SignInServlet</servlet-name>
     <url-pattern>/signIn</url-pattern>
@@ -145,5 +150,11 @@
     <servlet-name>DeleteNoteServlet</servlet-name>
     <url-pattern>/deleteNoteServlet</url-pattern>
   </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>UploadPhotoServlet</servlet-name>
+    <url-pattern>/uploadPhotoServlet</url-pattern>
+  </servlet-mapping>
+
 
 </web-app>
