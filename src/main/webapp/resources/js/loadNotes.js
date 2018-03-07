@@ -16,6 +16,7 @@ $("document").ready(
                });
     }
 );
+
 function setNotesContent(data, status, jqxhr) {
     console.log(data)
     data = JSON.parse(data)
@@ -67,6 +68,8 @@ function setNotesContent(data, status, jqxhr) {
         $(this).parent().submit()
     })
     function addInput() {
+        var urlArr;
+
         $("#addNote").replaceWith("<div id=\"addDiv\">" +
             "<input class=\"form-control\" type=\"text\" id=\"textNote\" name=\"textNote\" placeholder=\"Text\">" +
             "<input class=\"form-control\" type=\"text\" id=\"coordinate\" name=\"coordinate\" placeholder=\"coordinate\">" +
@@ -79,10 +82,87 @@ function setNotesContent(data, status, jqxhr) {
                 "<br />" +
                 "<input hidden=\"true\" id=\"submit_button\" type=\"submit\" value=\"Upload Image\" />" +
             "</form>" +
+
         "</div>" +
-        "<div id=\"images_box\">" +
-            "<button class=\"btn m-2 btn-primary addRoute\" id=\"addNew\">Add note</button>" +
-            "</div>");
+        "<div class=\"container row\" id=\"images_box\">" +
+            // "<div id=\"hiddenInput\">" +
+            // "</div>" +
+
+        "</div>" +
+        "<button class=\"btn m-2 btn-primary addRoute\" id=\"addNew\">Add note</button>");
+        
+        //LOAD PHOTO:
+        //***********************************************************************
+        var options = {
+            // http://jquery.malsup.com/form/#ajaxForm
+            beforeSubmit: preSubmitCallback,  // pre-submit callback
+            success: showResponse  // post-submit callback
+    
+            // other available options:
+            //url:       url         // override for form's 'action' attribute
+            //type:      type        // 'get' or 'post', override for form's 'method' attribute
+            //dataType:  null        // 'xml', 'script', or 'json' (expected server response type)
+            //clearForm: true        // clear all form fields after successful submit
+            //resetForm: true        // reset the form after successful submit
+    
+            // $.ajax options can be used here too, for example:
+            //timeout:   3000
+        };
+    
+        // bind form using 'ajaxForm'
+        $('#upload_form').ajaxForm(options);
+    
+        $("#input_box").change(selectImage);
+        // pre-submit callback
+        function preSubmitCallback(formData, jqForm, options) {
+            $("#submit_button")[0].hidden = true;
+            return true;
+        }
+
+        // post-submit callback
+        function showResponse(responseText, statusText, xhr, $form) {
+            // for normal html responses, the first argument to the success callback
+            // is the XMLHttpRequest object's responseText property
+
+            // if the ajaxForm method was passed an Options Object with the dataType
+            // property set to 'xml' then the first argument to the success callback
+            // is the XMLHttpRequest object's responseXML property
+
+            // if the ajaxForm method was passed an Options Object with the dataType
+            // property set to 'json' then the first argument to the success callback
+            // is the json data object returned by the server
+            $("#input_box").val("")
+            var imagesBox = $("#images_box");
+            var group = $("<div class=\"col-md-2\"></div>");
+            imagesBox.append(group);
+            group.append("<input hidden=\"true\" class=\"urlPhoto\" type=\"text\" value=\"" + responseText + "\" />"); 
+            group.append("<img src=" + responseText + " class=\"img-thumbnail\" \>");
+
+            // $(".imgContainer").css({
+            //     // "position": "relative"
+            // });
+            // $(".closeIcon").css({
+            //     "z-index": "2",
+            //     // "position": "absolute"
+            // });
+            // $(".addedImage").css({
+            //     "z-index": "1",
+            //     // "position": "absolute"
+            // });
+
+            // $(".imgContainer").mouseover(function(){
+            //     $(".closeIcon")[0].hidden = false;
+            //     // alert('Вы поместили курсор в зону элемента foo.');
+            // })
+            // $(".imgContainer").mouseout(function(){
+            //     $(".closeIcon")[0].hidden = true;
+            // })
+        }
+
+        function selectImage() {
+            $("#submit_button")[0].hidden = false;
+        }
+        //*******************************************************************************
 
         $("#addNew").click(addNewNote);
     }
@@ -93,7 +173,14 @@ function setNotesContent(data, status, jqxhr) {
             success: displayNewNote,
             type: "GET",
             dataType: "text",
-            data: { "text": $("#textNote").val(), "coordinate": $("#coordinate").val(), "photo": $("#photo").val() }
+            //data: { "text": $("#textNote").val(), "coordinate": $("#coordinate").val(), "photo": $(".urlPhoto").val() }
+            data: {
+                "text": $("#textNote").val(),
+                "coordinate": $("#coordinate").val(),
+                "photo": $(".urlPhoto").map(function () {
+                    return $(this).val();
+                }).get().join(",")
+            }
         });
     }
 

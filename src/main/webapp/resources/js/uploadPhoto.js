@@ -23,7 +23,7 @@ $("document").ready(function () {
 
 // pre-submit callback
 function preSubmitCallback(formData, jqForm, options) {
-    $("#submit_button").hide();
+    $("#submit_button")[0].hidden=true;
     return true;
 }
 
@@ -45,5 +45,5 @@ function showResponse(responseText, statusText, xhr, $form) {
 }
 
 function selectImage() {
-    $("#submit_button").show();
+    $("#submit_button")[0].hidden=false;
 }

@@ -3,6 +3,7 @@ package org.mycompany.myname.controller;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.mycompany.myname.model.dao.implement.JDBCDisplayPhoto;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -17,7 +18,7 @@ import java.util.UUID;
 
 public class UploadPhotoServlet extends HttpServlet {
     private static final String ROOT_FILE_PATH = "src/main/webapp";
-    private static final String UPLOAD_IMAGES_PATH = "upload_images";
+    private static final String UPLOAD_IMAGES_PATH = "uploadImages";
     private static final int maxFileSize = 1024 * 1024 * 40; // 40MB
     private static final int maxMemSize = 1024 * 1024 * 100; // 500MB
 
@@ -50,6 +51,9 @@ public class UploadPhotoServlet extends HttpServlet {
         // maximum file size to be uploaded.
         upload.setSizeMax(maxFileSize);
         String pathToImage = "";
+        String pathForSaving = "";
+       // JDBCDisplayPhoto photo = new JDBCDisplayPhoto();
+
 
         try {
             // Parse the request to get file items.
@@ -68,9 +72,12 @@ public class UploadPhotoServlet extends HttpServlet {
                     boolean isInMemory = fi.isInMemory();
                     long sizeInBytes = fi.getSize();
 
+
                     // Write the file
                     UUID uuid = UUID.randomUUID();
-                    pathToImage = UPLOAD_IMAGES_PATH + "/" + uuid + "/" + fileName;
+                    pathForSaving = uuid + "/" + fileName;
+                    //photo.savePhoto();
+                    pathToImage = UPLOAD_IMAGES_PATH + "/" + pathForSaving;
                     file = new File(ROOT_FILE_PATH + "/" + UPLOAD_IMAGES_PATH + "/" + uuid);
                     checkDir(file);
                     file = new File(file + "/" + fileName);
@@ -81,6 +88,7 @@ public class UploadPhotoServlet extends HttpServlet {
             System.out.println(ex);
         }
 
+        //writer.print(pathToImage);
         writer.print(pathToImage);
     }
 
