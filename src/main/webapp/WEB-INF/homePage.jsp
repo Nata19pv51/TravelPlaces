@@ -30,10 +30,10 @@
     </button>
     <div class="collapse navbar-collapse" id="myContent">
       <div class="navbar-nav mr-auto">
-        <a class="nav-item nav-link active" href="#">Home</a>
+        <a class="nav-item nav-link active" href="homePageServlet">Home</a>
         <a class="nav-item nav-link" id="routes" href="loadRoutesServlet">Routes</a>
         <a class="nav-item nav-link" id="notes" href="servletInNotes">Notes</a>
-        <a class="nav-item nav-link" href="#">Gallery</a>
+        <a class="nav-item nav-link" href="galleryServlet">Gallery</a>
         <a class="nav-item nav-link" href="#">Map</a>
       </div><!-- navbar-nav -->
   </div><!-- collapse -->

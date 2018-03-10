@@ -78,7 +78,27 @@
 
   <servlet>
     <servlet-name>UploadPhotoServlet</servlet-name>
-    <servlet-class>org.mycompany.myname.controller.UploadPhotoServlet</servlet-class>
+    <servlet-class>org.mycompany.myname.controller.Photos.UploadPhotoServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>PhotosOfOneNoteServlet</servlet-name>
+    <servlet-class>org.mycompany.myname.controller.Photos.PhotosOfOneNoteServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>GalleryServlet</servlet-name>
+    <servlet-class>org.mycompany.myname.controller.Gallery.GalleryServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>ShowAllPhotosServlet</servlet-name>
+    <servlet-class>org.mycompany.myname.controller.Gallery.ShowAllPhotosServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <servlet-name>ShowOneRouteServlet</servlet-name>
+    <servlet-class>org.mycompany.myname.controller.Routes.ShowOneRouteServlet</servlet-class>
   </servlet>
 
   <servlet-mapping>
@@ -156,5 +176,24 @@
     <url-pattern>/uploadPhotoServlet</url-pattern>
   </servlet-mapping>
 
+  <servlet-mapping>
+    <servlet-name>PhotosOfOneNoteServlet</servlet-name>
+    <url-pattern>/photosOfOneNoteServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>GalleryServlet</servlet-name>
+    <url-pattern>/galleryServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ShowAllPhotosServlet</servlet-name>
+    <url-pattern>/showAllPhotosServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ShowOneRouteServlet</servlet-name>
+    <url-pattern>/showOneRouteServlet</url-pattern>
+  </servlet-mapping>
 
 </web-app>

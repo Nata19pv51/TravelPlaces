@@ -1,4 +1,4 @@
-package org.mycompany.myname.controller;
+package org.mycompany.myname.controller.Photos;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;

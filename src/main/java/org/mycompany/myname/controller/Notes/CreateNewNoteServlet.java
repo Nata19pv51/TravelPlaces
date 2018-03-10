@@ -29,7 +29,7 @@ public class CreateNewNoteServlet extends HttpServlet {
         double location = Double.parseDouble(coordinate);
         int maxID;
         JDBCDisplayNote note = new JDBCDisplayNote();
-        JDBCDisplayPhoto jdbcDisplayPhoto = new JDBCDisplayPhoto();
+        //JDBCDisplayPhoto jdbcDisplayPhoto = new JDBCDisplayPhoto();
         try{
             note.createNote(1);
             maxID = note.getMaxID();
@@ -37,7 +37,8 @@ public class CreateNewNoteServlet extends HttpServlet {
             note.createCoordinate(maxID, location);
 
             for (String item : r) {
-                jdbcDisplayPhoto.savePhoto(maxID, item);
+                //jdbcDisplayPhoto.savePhoto(maxID, item);
+                note.savePhoto(maxID, item);
                 System.out.println(maxID + ", " + item);
             }
 

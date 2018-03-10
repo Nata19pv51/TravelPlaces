@@ -16,9 +16,9 @@ import java.util.List;
 public class NotesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
-        List<JDBCDisplayNote> nodes =  JDBCDisplayNote.getDisplayNotesByUserID(1);
+        List<JDBCDisplayNote> notes =  JDBCDisplayNote.getDisplayNotesByUserID(1);
         Gson gson = new Gson();
-        String jsonString = gson.toJson(nodes);
+        String jsonString = gson.toJson(notes);
         System.out.println(jsonString);
         httpServletResponse.getWriter().print(jsonString);
 

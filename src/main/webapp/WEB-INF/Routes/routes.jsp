@@ -30,10 +30,10 @@
     </button>
     <div class="collapse navbar-collapse" id="myContent">
       <div class="navbar-nav mr-auto">
-        <a class="nav-item nav-link active" href="#">Home</a>
+        <a class="nav-item nav-link active" href="homePageServlet">Home</a>
         <a class="nav-item nav-link" id="routes" href="loadRoutesServlet">Routes</a>
         <a class="nav-item nav-link" id="notes" href="servletInNotes">Notes</a>
-        <a class="nav-item nav-link" href="#">Gallery</a>
+        <a class="nav-item nav-link" href="galleryServlet">Gallery</a>
         <a class="nav-item nav-link" href="#">Map</a>
       </div><!-- navbar-nav -->
   </div><!-- collapse -->
@@ -49,17 +49,26 @@
     </form>
 </nav>
 
-<div class="container">
+<div class="container" >
     <h2 class="mt-5">Routes</h2>
-    <div id="insert_div">
-        <div class="container center-block" id="div"></div>
+    <div id="insert_div" class="row">
+        <div class="col-sm-3" >
+            <button class="btn m-2 btn-primary" id="add">Add new</button>
+            <div class="anyClass" id="allRoutes" style="height: auto; overflow-y: scroll"></div>
+        </div>
+        <div class="col-sm-4" id="oneRoute"></div>
     </div>
+</div>
+
+<div>
+
 </div>
 
 <script src="resources/js/jquery-3.3.1.min.js"></script>
 <script src="resources/js/tether.min.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>
 <script src="resources/js/loadRoutes.js"></script>
+<script src="resources/js/addNoteClick.js"></script>
 
 
 </body>

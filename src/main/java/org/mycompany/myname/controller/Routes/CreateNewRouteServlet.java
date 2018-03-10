@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 public class CreateNewRouteServlet extends HttpServlet {
     @Override
@@ -17,12 +18,18 @@ public class CreateNewRouteServlet extends HttpServlet {
         JDBCDisplayRoutes route = new JDBCDisplayRoutes();
         try {
             route.create(title, 1);
-            maxID = route.getMaxID();
-            JDBCDisplayRoutes newRoute = JDBCDisplayRoutes.getRouteByID(maxID);
+            //maxID = route.getMaxID();
+
+            List<JDBCDisplayRoutes> notes =  JDBCDisplayRoutes.getRoutesByUserID(1);
             Gson gson = new Gson();
-            String jsonString = gson.toJson(newRoute);
+            String jsonString = gson.toJson(notes);
             System.out.println(jsonString);
             httpServletResponse.getWriter().print(jsonString);
+//            JDBCDisplayRoutes newRoute = JDBCDisplayRoutes.getRouteByID(maxID);
+//            Gson gson = new Gson();
+//            String jsonString = gson.toJson(newRoute);
+//            System.out.println(jsonString);
+//            httpServletResponse.getWriter().print(jsonString);
 
         } catch (Exception e) {
             e.printStackTrace();

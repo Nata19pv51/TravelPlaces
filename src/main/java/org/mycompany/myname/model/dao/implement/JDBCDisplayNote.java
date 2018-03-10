@@ -21,21 +21,16 @@ public class JDBCDisplayNote{
     final public static String DATE_CREATION = "dateCreation";
     final public static String ID_USER = "id_user";
     final public static String TEXT = "text";
+    final public static String PHOTO_TABLE = "notePhoto";
+    final public static String URL_PHOTO = "url_photo";
 
     private long time;
     private int userId;
     private String text;
     private double coordination;
     private int noteId;
-    //private int maxID;
-
-//    public int getMaxID() {
-//        return maxID;
-//    }
-//
-//    public void setMaxID(int maxID) {
-//        this.maxID = maxID;
-//    }
+    private int idNote;
+    private String url;
 
     public int getNoteId() {
         return noteId;
@@ -77,6 +72,22 @@ public class JDBCDisplayNote{
         this.coordination = coordination;
     }
 
+    public int getIdNote() {
+        return idNote;
+    }
+
+    public void setIdNote(int idNote) {
+        this.idNote = idNote;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public int getMaxID(){
         String URL = "jdbc:mysql://localhost/Travel";
         String USER  = "root";
@@ -85,10 +96,8 @@ public class JDBCDisplayNote{
         try (Connection connection = DriverManager.getConnection(URL, USER, "");
              Statement ps = connection.createStatement();
              ResultSet resultSet = ps.executeQuery(query)){
-            //JDBCDisplayNote note = new JDBCDisplayNote();
             if(resultSet.next()){
                 maxID = resultSet.getInt("MAX(id_note)");
-                // note.setMaxID(resultSet.getInt("id_note"));
                 return maxID;
             }
         } catch (SQLException e) {
@@ -115,11 +124,6 @@ public class JDBCDisplayNote{
         String URL = "jdbc:mysql://localhost/Travel";
         String USER = "root";
         String query = "INSERT INTO textnode (textnode.id_note, textnode.text) VALUES (" + id + ", '" + text + "')";
-//        String query = "INSERT INTO " + TEXT_TABLE + " (" + ID_NOTE + ", " + TEXT + ") VALUES (" + id + ", \"" + text + "\"); " +
-//                        "INSERT INTO " + COORDINATE_TABLE + " (" + ID_NOTE + ", " + COORDINATE + ") VALUES (" + id + ", " + location + ")";
-
-//        INSERT INTO `textnode`(`id_note`, `text`) VALUES (5, "Hello")
-//        INSERT INTO `coordinate`(`id_note`, `coordinate`) VALUES (5, 23.34545)
         try (Connection connection = DriverManager.getConnection(URL, USER, "");
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.executeUpdate();
@@ -132,12 +136,6 @@ public class JDBCDisplayNote{
         String URL = "jdbc:mysql://localhost/Travel";
         String USER = "root";
         String query = "INSERT INTO coordinate (coordinate.id_note, coordinate.coordinate) VALUES (" + id + ", " + location + ")";
-
-//        String query = "INSERT INTO " + TEXT_TABLE + " (" + ID_NOTE + ", " + TEXT + ") VALUES (" + id + ", \"" + text + "\"); " +
-//                        "INSERT INTO " + COORDINATE_TABLE + " (" + ID_NOTE + ", " + COORDINATE + ") VALUES (" + id + ", " + location + ")";
-
-//        INSERT INTO `textnode`(`id_note`, `text`) VALUES (5, "Hello")
-//        INSERT INTO `coordinate`(`id_note`, `coordinate`) VALUES (5, 23.34545)
         try (Connection connection = DriverManager.getConnection(URL, USER, "");
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.executeUpdate();
@@ -145,9 +143,21 @@ public class JDBCDisplayNote{
             throw new RuntimeException(e);
         }
     }
-//    INSERT INTO note ('dateCreation', 'id_user') VALUES (23423432535, 2);
-//    INSERT INTO textnode ('text') VALUES ("Hello");
-//    INSERT INTO coordinate ('coordinate') VALUES (35.242434);
+
+    public void savePhoto(int id_note, String url) {
+        String URL = "jdbc:mysql://localhost/Travel";
+        String USER = "root";
+        String query = "INSERT INTO " + PHOTO_TABLE + " (" + ID_NOTE + ", " + URL_PHOTO + ") VALUES (\"" +
+                id_note + "\", '" + url + "')";
+        try (Connection connection = DriverManager.getConnection(URL, USER, "");
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+   // public List<>
 
     static public List<JDBCDisplayNote> getDisplayNotesByUserID(int userId) {
         String URL = "jdbc:mysql://localhost/Travel";
@@ -171,8 +181,30 @@ public class JDBCDisplayNote{
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return notes;
+    }
 
+    static public List<JDBCDisplayNote> getDisplayNotesByRouteID(int routeId) {
+        String URL = "jdbc:mysql://localhost/Travel";
+        String USER  = "root";
 
+        List<JDBCDisplayNote> notes = new ArrayList<>();
+        try (Connection connection = DriverManager.getConnection(URL, USER, "");
+             Statement ps = connection.createStatement();
+             ResultSet resultSet = ps.executeQuery(Query.findAllNotesByUserId(routeId))) {
+
+            JDBCDisplayNote note;
+            while (resultSet.next()) {
+                note = new JDBCDisplayNote();
+                note.setNoteId(resultSet.getInt("id_note"));
+                note.setText(resultSet.getString("text"));
+                note.setCoordination(resultSet.getDouble("coordinate"));
+                note.setTime(resultSet.getLong("dateCreation"));
+                notes.add(note);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
         return notes;
     }
 
@@ -200,18 +232,14 @@ public class JDBCDisplayNote{
                 " WHERE note.id_note=" + noteId;
         try (Connection connection = DriverManager.getConnection(URL, USER, "");
              Statement ps = connection.createStatement();
-             //PreparedStatement ps = connection.prepareStatement(query);
-             ResultSet resultSet = ps.executeQuery(query)){
-             //ResultSet resultSet = ps.executeQuery()) {
-
+             ResultSet resultSet = ps.executeQuery(query))
+        {
             JDBCDisplayNote note = new JDBCDisplayNote();
             if (resultSet.next()) {
                 note.setNoteId(resultSet.getInt("id_note"));
                 note.setTime(resultSet.getLong("dateCreation"));
                 note.setText(resultSet.getString("text"));
                 note.setCoordination(resultSet.getDouble("coordinate"));
-//                note.setCoordination(resultSet.getDouble("coordinate"));
-                //notes.add(note);
                 return note;
             }
         } catch (SQLException e) {
