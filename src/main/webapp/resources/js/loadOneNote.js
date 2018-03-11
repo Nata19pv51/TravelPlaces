@@ -28,7 +28,8 @@ function showOneNote(data, status, jqxhr) {
     note.append("<input type=\"hidden\" id=\"idNote\" name=\"idNote\" value=\"" + data.noteId + "\"/>");
     note.append("<div class=\"text-muted text-small text-left col-sm-4 timeNote\"><p>" + date + "</p></div>");
     note.append("<div class=\"textNote text-left\" name=\"textNote\">" + data.text + "</div>");
-    note.append("<div id=\"cordinateNote\" name=\"cordinateNote\">" + data.coordination + "</div>");
+    note.append("<div id=\"cordinateNote\" name=\"LatNote\">" + data.lat + "</div>");
+    note.append("<div id=\"cordinateNote\" name=\"LngNote\">" + data.lng + "</div>");
     //var imgBox = $("<div class=\"container row\" style=\"background: white\" id=\"images_box\"></div");
     //note.append(imgBox);
     

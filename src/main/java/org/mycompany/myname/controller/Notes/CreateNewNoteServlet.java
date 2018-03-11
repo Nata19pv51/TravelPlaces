@@ -14,8 +14,11 @@ import java.util.ArrayList;
 public class CreateNewNoteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
+
+        String routID = httpServletRequest.getParameter("routID");
         String text = httpServletRequest.getParameter("text");
-        String coordinate = httpServletRequest.getParameter("coordinate");
+        String coordinateLat = httpServletRequest.getParameter("Lat");
+        String coordinateLng = httpServletRequest.getParameter("Lng");
         //String photo = httpServletRequest.getParameter("photo");
         //String[] photo = httpServletRequest.getParameterValues("photo");
         String photo = httpServletRequest.getParameter("photo");
@@ -26,7 +29,9 @@ public class CreateNewNoteServlet extends HttpServlet {
             System.out.println('"' + r[i] + '"');
         }
 
-        double location = Double.parseDouble(coordinate);
+        double lat = Double.parseDouble(coordinateLat);
+        double lng = Double.parseDouble(coordinateLng);
+        int routeID = Integer.parseInt(routID);
         int maxID;
         JDBCDisplayNote note = new JDBCDisplayNote();
         //JDBCDisplayPhoto jdbcDisplayPhoto = new JDBCDisplayPhoto();
@@ -34,8 +39,8 @@ public class CreateNewNoteServlet extends HttpServlet {
             note.createNote(1);
             maxID = note.getMaxID();
             note.createText(maxID, text);
-            note.createCoordinate(maxID, location);
-
+            note.createCoordinate(maxID, lat, lng);
+            note.createRouteNote(routeID, maxID);
             for (String item : r) {
                 //jdbcDisplayPhoto.savePhoto(maxID, item);
                 note.savePhoto(maxID, item);

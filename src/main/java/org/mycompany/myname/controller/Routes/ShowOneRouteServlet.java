@@ -14,11 +14,17 @@ import java.util.List;
 public class ShowOneRouteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
-        String id = httpServletRequest.getParameter("idRoute");
-        int idRoute = Integer.parseInt(id);
-        List<JDBCDisplayNote> notes =  JDBCDisplayNote.getDisplayNotesByRouteID(idRoute);
-        Gson gson = new Gson();
-        String jsonString = gson.toJson(notes);
+        String id = httpServletRequest.getParameter("id");
+        int id_route = Integer.parseInt(id);
+        List<JDBCDisplayNote> notes =  JDBCDisplayNote.getDisplayNotesByRouteID(id_route);
+        String jsonString = "";
+        if(notes.size() > 0) {
+            notes.get(0).setRoutID(id_route);
+            Gson gson = new Gson();
+            jsonString = gson.toJson(notes);
+        } else {
+            jsonString = String.format("{\"routID\":%d}", id_route);
+        }
         System.out.println(jsonString);
         httpServletResponse.getWriter().print(jsonString);
     }

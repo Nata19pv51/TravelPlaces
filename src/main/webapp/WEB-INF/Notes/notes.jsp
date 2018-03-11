@@ -68,6 +68,8 @@
 <!-- <script src="resources/js/uploadPhoto.js"></script> -->
 <script src="resources/js/loadNotes.js"></script>
 <script src="resources/js/addNoteClick.js"></script>
+<script src="resources/js/setNotesContent.js"></script>
+
 
 </body>
 </html>

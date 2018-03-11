@@ -51,7 +51,7 @@ public class Query {
 //                " JOIN " + TablesName.TEXT + " ON " +
 //                TableParameters.Note.ID_NOTE + " = " + TableParameters.Text.ID_NOTE +
 //                "WHERE " + TableParameters.Note.ID_USER + " = " + id;
-        return "SELECT note.id_note, note.dateCreation, coordinate.coordinate, textnode.text " +
+        return "SELECT note.id_note, note.dateCreation, coordinate.Lat, coordinate.Lng,  textnode.text " +
                 "FROM note JOIN coordinate ON note.id_note = coordinate.id_note " +
                 "JOIN textnode ON note.id_note = textnode.id_note WHERE note.id_user = " + id +
                 " ORDER BY note.dateCreation DESC";

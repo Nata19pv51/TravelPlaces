@@ -52,11 +52,15 @@
 <div class="container" >
     <h2 class="mt-5">Routes</h2>
     <div id="insert_div" class="row">
-        <div class="col-sm-3" >
+        <div class="col-sm-4" >
             <button class="btn m-2 btn-primary" id="add">Add new</button>
             <div class="anyClass" id="allRoutes" style="height: auto; overflow-y: scroll"></div>
         </div>
-        <div class="col-sm-4" id="oneRoute"></div>
+        <div class="col-sm-4" id="oneRoute">
+            <div id="divNotes" class="mb-2">
+                 <!-- <input type="hidden" class="idRoute" name="idRoute" value="<%= request.getParameter("idRoute") %>"/> -->
+            </div>
+        </div>
     </div>
 </div>
 
@@ -65,10 +69,13 @@
 </div>
 
 <script src="resources/js/jquery-3.3.1.min.js"></script>
+<script src="http://malsup.github.com/jquery.form.js"></script>
 <script src="resources/js/tether.min.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>
 <script src="resources/js/loadRoutes.js"></script>
+<!-- <script src="resources/js/setNotesContent.js"></script> -->
 <script src="resources/js/addNoteClick.js"></script>
+<script src="resources/js/oneRouteShow.js"></script>
 
 
 </body>

@@ -17,7 +17,7 @@ function setRoutesContent(data, status, jqxhr) {
     var info = $("#allRoutes");
     $("header").hide();
     $("body").css({ "background-image": "#FFF5EE", "background-repeat": "no-repeat", "background-size": "cover" });
-    var routeList = $("<div class=\"mt-5\" id=\"listRoutes\"></div>");
+    var routeList = $("<div class=\"mt-2\" id=\"listRoutes\"></div>");
 
     info.append(routeList);
     $("#add").replaceWith("<button class=\"btn m-2 btn-primary\" id=\"add\">Add new</button>");
@@ -34,6 +34,7 @@ function setRoutesContent(data, status, jqxhr) {
         routeList.append(
             "<div class=\"divRoutes mb-2\">" +
             "<input type=\"hidden\" class=\"idRoute\" name=\"idRoute\" value=\"" + item.idRoute + "\"/>" +
+            // "<input type=\"hidden\" class=\"idRoute\" name=\"idRoute\" value=<%= request.getParameter(\"idRoute\") %>/>" +
             "<div class=\"text-muted text-small text-left timeNote\">" + date + "</div>" +
             "<div class=\"textNote text-left\" name=\"textNote\">" + item.name + "</div>" +
             "</div>"
@@ -49,8 +50,32 @@ function setRoutesContent(data, status, jqxhr) {
             "padding": " 5px"
         });
         $("#add").click(addInputRoute);
-       // $(".divRoutes").click(showRoute);
+        $(".divRoutes").click(function () {
+            console.log($(this).children("input").val())
+
+            $.ajax("showOneRouteServlet",
+                {
+                    success: setNotesContent,
+                    type: "POST",
+                    dataType: "text",
+                    data: { "id": $(this).children("input").val() }
+                })
+
+            // $(this).parent().submit();
+            // oneRouteShow();
+        })
+
     })
+    // function loadNote() {
+    //     $.ajax("showOneRouteServlet",
+    //         {
+    //             success: setNotesContent,
+    //             type: "POST",
+    //             dataType: "text",
+    //             data: { "id": $(".idRoute").val() }
+    //         })
+    // }
+
 }
 
 // function showRoute(){
