@@ -63,13 +63,15 @@
 
 <script src="resources/js/jquery-3.3.1.min.js"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script>
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjjC7v0SfDZg0dquCEIWzqAn_blHu6I7M"></script>
 <script src="resources/js/tether.min.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>
 <!-- <script src="resources/js/uploadPhoto.js"></script> -->
 <script src="resources/js/loadNotes.js"></script>
 <script src="resources/js/addNoteClick.js"></script>
 <script src="resources/js/setNotesContent.js"></script>
-
+<script src="resources/js/initMap.js"></script>
 
 </body>
 </html>

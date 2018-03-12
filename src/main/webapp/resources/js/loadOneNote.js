@@ -28,11 +28,14 @@ function showOneNote(data, status, jqxhr) {
     note.append("<input type=\"hidden\" id=\"idNote\" name=\"idNote\" value=\"" + data.noteId + "\"/>");
     note.append("<div class=\"text-muted text-small text-left col-sm-4 timeNote\"><p>" + date + "</p></div>");
     note.append("<div class=\"textNote text-left\" name=\"textNote\">" + data.text + "</div>");
-    note.append("<div id=\"cordinateNote\" name=\"LatNote\">" + data.lat + "</div>");
-    note.append("<div id=\"cordinateNote\" name=\"LngNote\">" + data.lng + "</div>");
+    // note.append("<div id=\"cordinateNote\" name=\"LatNote\">" + data.lat + "</div>");
+    // note.append("<div id=\"cordinateNote\" name=\"LngNote\">" + data.lng + "</div>");
     //var imgBox = $("<div class=\"container row\" style=\"background: white\" id=\"images_box\"></div");
     //note.append(imgBox);
-    
+    var lt = data.lat;
+    var lg = data.lng;
+    var txt = data.text;
+    showMap(lt, lg, txt);
     //инициализировать плагин fancybox для элементов <a>, имеющих класс
     //$("a.fancyimage").fancybox();
 
@@ -43,11 +46,36 @@ function showOneNote(data, status, jqxhr) {
             dataType: "text",
             data: { "id": $("#idNote").val() }
         })
+
     $(".textNote").dblclick(editText);
     //$("#returnNotes").click();
-    $("#deleteNote").click();   
+    $("#deleteNote").click();  
+    // $("#map_canvas").css({
+    //     "position": "absolute"
+    // }) 
 }
-
+function showMap(lt, lg, txt) {
+        var map = new google.maps.Map(document.getElementById('map_canvas'), {
+          zoom: 10,
+          center: {lat: lt, lng: lg}
+        });
+        var marker = new google.maps.Marker({
+            position: {
+                lat: lt,
+                lng: lg
+            },
+            title: txt,
+            map: map
+        });
+    //https://bitbucket.org/IdeasV/travelplaces/src/31e304b53c56274c247782045ef229d00c9df377/WebTravelPlaces/src/main/webapp/js/map.js?at=master&fileviewer=file-view-default
+    // var myTrip = [stavanger, amsterdam, london];
+    // var flightPath = new google.maps.Polyline({
+    //     path: myTrip,
+    //     strokeColor: "#0000FF",
+    //     strokeOpacity: 0.8,
+    //     strokeWeight: 2
+    // });
+      }
 function createGrid() {
     $(".gallery").css("width","100%")
     var options = {
@@ -75,14 +103,17 @@ function editText() {
     $(".textNote").prop("disabled", true);
     var firstText = $(this).html();
     $(this).replaceWith(
-        "<div id=\"replaceText\">" +
-        "<input type=\"text\" class=\"textNote text-left\" name=\"textNote\" value=\"" + $(this).html() + "\">" +
-        "<div class=\"input-group\">" +
-        "<span class=\"input-group-btn row\">" +
-        "<button class=\"btn btn-info \" id=\"saveText\">Save</button>" +
-        "<button class=\"btn btn-info col-sm-offset-3\" id=\"cancelSaveText\">Cancel</button>" +
-        "</span>" +
+        "<div id=\"replaceText\" class=\"container row\">" +
+        "<input type=\"text\" class=\"textNote text-left col-md-6 m-2\" name=\"textNote\" value=\"" + $(this).html() + "\">" +
+        "<div class=\"input-group col-md-6\">" +
+        //"<span class=\"input-group-btn\">" +
+        "<button class=\"btn btn-success btn-sm mr-1 col-sm-8\" id=\"saveText\">Save</button>" +
+        "<button class=\"btn btn-success btn-sm mr-1 col-sm-8\" id=\"cancelSaveText\">Cancel</button>" +
+        //"<button class=\"btn btn-info col-sm-offset-3\" id=\"cancelSaveText\">Cancel</button>" +
+        //"</span>" +
         "</div>");
+        // $("#saveText").css({"width": "30px", "height": "40px"}); 
+        // $("#cancelSaveText").css({"width": "30px", "height": "40px"}); 
     $("#saveText").click(newText);
     function newText() {
         $('#saveText').prop("disabled", true);

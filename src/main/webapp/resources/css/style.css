@@ -3,13 +3,13 @@
     float: none;
     vertical-align: middle;
 }
-.divNotes{
+/* .divNotes{
     background: #B0E0E6;
     border-color: #4682B4;
     border-style: solid;
     border-radius: 8px;
     padding: 5px
-    }
+    } */
 
 body{
     background-image: #FFF5EE;
@@ -17,78 +17,21 @@ body{
     background-size: cover
 }
 
-/* .anyClass{
-  height:150px;
-  overflow-y: scroll;
-} */
 
-/* img {
-    max-width: 100%;
-  }
-  
-  .gallery {
-    width: 60%;
-    margin: 0 auto;
-  }
-  
-  .img-list {
-    margin: 0;
-    padding: 0;
-    text-align: center;
-  }
-  
-  .img-list li {
-    display: inline-block;
-    list-style: none;
-  }
-  
-  .img-list img {
-    width: 320px;
-    max-width: 100%;
-    height: 180px;
-  } */
-  
-  /*
-  =lightbox
-  */
-  /* .lightbox {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    text-align: center;
-    padding: 25px 0;
-    display: none;
-    overflow-y: auto;
-  }
-  
-  .overlay {
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,.8);
-  }
-  
-  .lightbox figure {
-    display: inline-block;
-    position: relative;
-    z-index: 1;
+/* Когда ширина окна до 860 пикселей, ширина  div-2 будет 860px */
+/* @media screen and (max-width: 860px){
+    #map_canvas{
+      width: 100px;
+      height: 100px;
+      background-color: grey
+    } 
+} */
+/* Когда ширина окна от 861 пикселей, ширина  div-2 будет 861px */
+
+#map_canvas{
     width: 80%;
-    max-width: 800px;
-  }
-  
-  
-  .next, .prev {
-    display: inline-block;
-    color:#fff;
-    margin: 15px 10px;
-    cursor: pointer;
-  }
-  
-  .prev {
-    left: 0;
-  } */
+    height: 150px;
+    background-color: grey;
+    /* align-content: center; */
+    margin-left: 10%;
+}

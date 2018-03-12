@@ -13,7 +13,7 @@
     <style>
         img {
             padding: 4px;
-            background-color: #fff;
+            /* background-color: #fff; */
             border: 1px solid #ddd;
             border-radius: 4px;
         }
@@ -60,11 +60,33 @@
 
 <div id="insert_div">
     <div class="container center-block" id="div">
-        <div class="divNotes mb-2">
-            <input type="hidden" class="idNote" name="idNote" value="<%= request.getParameter("idNote") %>"/>
+        <div class="notes mb-2">
+            <div class="divNotes">
+                <input type="hidden" class="idNote" name="idNote" value="<%= request.getParameter("idNote") %>"/>
+            </div>
+            <div id="map_canvas">
+
+            </div>
+            <div class="gallery">
+                <div id="subGallery" class="grid">
+                </div>
+            </div>
+
             
         </div>
-
+        
+        <!-- <div id="div">
+            <div class="notes">
+                <div class="divNotes">
+                    <input type="hidden" class="idNote" name="idNote" value="<%= request.getParameter("idNote") %>"/>
+                </div>
+                
+                
+                <div id="map_canvas">
+    
+                </div>
+            </div> -->
+    
         <!-- <div class="row gallery">
 
         </div> -->
@@ -73,10 +95,7 @@
         
         </div> -->
 
-        <div class="container gallery">
-            <div id="subGallery" class="grid">
-            </div>
-        </div>
+        
 
         <!-- <p>Dynamic page</p>
         <p>Time <%= new java.util.Date() %></p>
@@ -116,10 +135,11 @@
 <script src="resources/js/jquery-3.3.1.min.js"></script>
 <!-- <script src="resources/js/jmosaicflow/jquery.mosaicflow.min.js"></script>
 <script type="text/javascript" src="resources/js/jfancybox/fancybox/jquery.fancybox.pack.js"></script> -->
-<script src="resources/js/tether.min.js"></script>
-
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjjC7v0SfDZg0dquCEIWzqAn_blHu6I7M"></script>
 <!-- https://github.com/FezVrasta/popper.js#installation -->
 <!-- <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script> -->
+<script src="resources/js/tether.min.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>
 
 <!-- http://fancyapps.com/fancybox/3/ -->
@@ -129,21 +149,6 @@
 <script src="resources/js/jgridify/jquery/gridify.js"></script>
 <script src="resources/js/loadOneNote.js"></script>
 <!-- <script src="resources/js/gallery.js"></script> -->
-
-<!-- <script>
-    $("document").ready(function loadNote() {
-        $(function() {
-            var options = {
-                srcNode: 'img',             // grid items
-                margin: '15px',             // margin in pixel
-                width: '240px',             // grid item width in pixel
-                max_width: '',              // dynamic gird item width
-                resizable: true,            // re-layout if window resize
-                transition: 'all 0.5s ease' // support transition for CSS3
-            };
-            $('.grid').gridify(options);
-        });
-    })
-        </script> -->
+<!-- <script src="resources/js/initMap.js"></script> -->
 </body>
 </html>
