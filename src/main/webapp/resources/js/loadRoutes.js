@@ -55,7 +55,7 @@ function setRoutesContent(data, status, jqxhr) {
 
             $.ajax("showOneRouteServlet",
                 {
-                    success: setNotesContent,
+                    success: oneRouteShow,
                     type: "POST",
                     dataType: "text",
                     data: { "id": $(this).children("input").val() }

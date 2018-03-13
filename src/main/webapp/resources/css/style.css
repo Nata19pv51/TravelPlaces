@@ -31,7 +31,7 @@ body{
 #map_canvas{
     width: 80%;
     height: 150px;
-    background-color: grey;
+    background-color: white;
     /* align-content: center; */
     margin-left: 10%;
 }

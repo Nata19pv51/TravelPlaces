@@ -7,7 +7,8 @@
   <meta http-equiv="x-ua-compatible" content="ie=edge">
 
   <link rel="stylesheet" href="resources/css/bootstrap.min.css">
-
+  <link rel="stylesheet" href="resources/js/fancybox-master/dist/jquery.fancybox.min.css">
+  <link rel="stylesheet" href="resources/css/style.css">
 
   <title>Travel Places</title>
   <link rel="icon" href="resources/images/3.png" type="image/x-icon">
@@ -41,38 +42,20 @@
 </nav>
 
 <div class="container">
-    <!-- <div>
-        <h3>Upload</h3>
-        <form id="upload_form" class="upload_box" action="uploadPhotoServlet" method="post" enctype="multipart/form-data">
-            <input id="input_box" type="file" name="file" />
-            <br />
-            <br />
-            <input hidden="true" id="submit_button" type="submit" value="Upload Image" />
-        </form>
+    <h2 class="mt-5">Gallery</h2>
+    <div class="container gallery">
+        <div id="subGallery" class="grid"></div>
     </div>
-    <div id="images_box">
-
-    </div> -->
-
-    <h2 class="mt-5">Notes</h2>
-    <div id="insert_div">
-        <div class="container center-block" id="contener_div"></div>
-    </div>
-
 </div>
 
 <script src="resources/js/jquery-3.3.1.min.js"></script>
-<script src="http://malsup.github.com/jquery.form.js"></script>
-<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjjC7v0SfDZg0dquCEIWzqAn_blHu6I7M"></script>
 <script src="resources/js/tether.min.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>
-<!-- <script src="resources/js/uploadPhoto.js"></script> -->
-<script src="resources/js/setNotesContent.js"></script>
-<script src="resources/js/initMap.js"></script>
-<script src="resources/js/addNoteClick.js"></script>
-<script src="resources/js/oneRouteShow.js"></script>
-<script src="resources/js/loadNotes.js"></script>
+<!-- http://fancyapps.com/fancybox/3/ -->
+<script src="resources/js/fancybox-master/dist/jquery.fancybox.min.js"></script>
+<!-- http://hongkhanh.github.io/gridify/ -->
+<script src="resources/js/jgridify/jquery/gridify.js"></script>
+<script src="resources/js/gallery.js"></script>
 
 
 </body>

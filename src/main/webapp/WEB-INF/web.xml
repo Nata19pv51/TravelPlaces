@@ -101,6 +101,11 @@
     <servlet-class>org.mycompany.myname.controller.Routes.ShowOneRouteServlet</servlet-class>
   </servlet>
 
+  <servlet>
+    <servlet-name>SendIdRouteServlet</servlet-name>
+    <servlet-class>org.mycompany.myname.controller.Routes.SendIdRouteServlet</servlet-class>
+  </servlet>
+
   <servlet-mapping>
     <servlet-name>SignInServlet</servlet-name>
     <url-pattern>/signIn</url-pattern>
@@ -194,6 +199,11 @@
   <servlet-mapping>
     <servlet-name>ShowOneRouteServlet</servlet-name>
     <url-pattern>/showOneRouteServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>SendIdRouteServlet</servlet-name>
+    <url-pattern>/sendIdRouteServlet</url-pattern>
   </servlet-mapping>
 
 </web-app>

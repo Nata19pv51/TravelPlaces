@@ -49,19 +49,19 @@
     </form>
 </nav>
 
-<div class="container" >
+<div class="container">
     <h2 class="mt-5">Routes</h2>
     <div id="insert_div" class="row">
-        <div class="col-sm-4" >
+        <div class="col-sm-3" >
             <button class="btn m-2 btn-primary" id="add">Add new</button>
             <div class="anyClass" id="allRoutes" style="height: auto; overflow-y: scroll"></div>
         </div>
-        <div class="col-sm-4" id="oneRoute">
+        <div class="col-sm-3" id="oneRoute">
             <div id="divNotes" class="mb-2">
                  <!-- <input type="hidden" class="idRoute" name="idRoute" value="<%= request.getParameter("idRoute") %>"/> -->
             </div>
         </div>
-        <div class="col-sm-4" id="map_canvas">
+        <div class="col-sm-4" id="map_canvas" style="width: 90%; height: 400px; margin-right: 6%;">
             
         </div>
     </div>
