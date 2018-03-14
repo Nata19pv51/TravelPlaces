@@ -1,28 +1,21 @@
 function oneRouteShow(data, status, jqxhr) {
-    console.log(data)
-    data = JSON.parse(data)
-    $("#divNotes").html("")
+    console.log(data);
+    data = JSON.parse(data);
+    $("#divNotes").html("");
+    //var routHiddenID = 0;
 
-    //var info = $("#contener_div")
     $("header").hide();
     var noteList = $("<div class=\"mt-5\" id=\"listNotes\">" +
-        "<button class=\"btn m-2 btn-primary\" id=\"addNote\">Add new</button>" + "</div>");
+        "<button class=\"btn m-2 btn-primary\" id=\"addNote\">Add note</button>" + "</div>");
     if (data['routID']) {
         noteList.append("<input id=\"routHiddenID\" type=\"hidden\" class=\"idNote\" name=\"idRoute\" value=\"" + data['routID'] + "\"/>");
         $("#divNotes").append("<p>Nothing to show</p>");
         $("#divNotes").append(noteList);
+        //routHiddenID = $("#routHiddenID").val();
     } else {
         noteList.append("<input id=\"routHiddenID\" type=\"hidden\" class=\"idNote\" name=\"idRoute\" value=\"" + data[0].routID + "\"/>");
         $("#divNotes").append(noteList);
-        //https://bitbucket.org/IdeasV/travelplaces/src/31e304b53c56274c247782045ef229d00c9df377/WebTravelPlaces/src/main/webapp/js/map.js?at=master&fileviewer=file-view-default
-        // var myTrip = [stavanger, amsterdam, london];
-        // var flightPath = new google.maps.Polyline({
-        //     path: myTrip,
-        //     strokeColor: "#0000FF",
-        //     strokeOpacity: 0.8,
-        //     strokeWeight: 2
-        // });
-
+        //routHiddenID = $("#routHiddenID").val();
         var myTrip = new Array();
         var placeName = new Array();
         data.forEach(function (item, i, data) {
@@ -41,16 +34,8 @@ function oneRouteShow(data, status, jqxhr) {
             noteList.append(formBox);
             console.log("Fill date and text of note");
             //добавляем широту и высоту координаты в массив:
-            // myTrip.push(new google.maps.LatLng(item.lat, item.lng));
             myTrip.push({ lat: item.lat, lng: item.lng });
             placeName.push(item.text);
-            // console.log(myTrip[myTrip.length-1].val());
-            // console.log(placeName[placeName.length - 1]);
-            // var noteBox = $("<div class=\'divNotes mb-2\'> </div>");
-            // noteBox.append($("<input type=\"hidden\" class=\"idNote\" name=\"idNote\" value=\"" + item.noteId + "\"/>"))
-            // noteBox.append($("<h4 class=\"col-sm-4 timeNote\">" + item.time + "</h4>"))
-            // noteBox.append($("<div class=\"textNote\" name=\"textNote\">" + item.text + "</div>"))
-            // noteList.append(noteBox);
         });
 
         //рисуем карту с маркерами путя:
@@ -68,41 +53,70 @@ function oneRouteShow(data, status, jqxhr) {
         })
     }
 
-    // info.append(noteList);
-    //  $("#insert_div").html(info);
-
-    // $("#addNote").click(function(){
-    //     $.ajax({
-    //         url: "sendIdRouteServlet",
-    //         success: addNoteClick,
-    //         type: "POST",
-    //         dataType: "text",
-    //         data: {"routID": routID.val()}
-    //     });
-    // });
     $("#addNote").click(addNoteClick);
+    
+    // $("#addNote").click(
+    //     function(){
+    //         $.ajax("sendIdRouteServlet",
+    //             {
+    //                 success: addNoteClick,
+    //                 type: "POST",
+    //                 dataType: "text",
+    //                 data: { "id": routHiddenID.value }
+    //             })
+    //     });
+    
+    
+    // $("#cancelNote").click(
+    //     function () {
+    //         console.log($(this).children("input").val())
+
+    //         $.ajax("showOneRouteServlet",
+    //             {
+    //                 success: oneRouteShow,
+    //                 type: "POST",
+    //                 dataType: "text",
+    //                 data: { "id": $("#routHiddenID").val() }
+    //             })
+
+    //         // $(this).parent().submit();
+    //         // oneRouteShow();
+    //     }
+    // )
 
     function myMap(myTrip, placeName) {
         var mapCanvas = document.getElementById("map_canvas");
         var mapOptions = { center: myTrip[0], zoom: 4 };
         var map = new google.maps.Map(mapCanvas, mapOptions);
-        var marker1 = new google.maps.Marker({
-            position: {
-                lat: myTrip[0].lat,
-                lng: myTrip[0].lng
-            },
-            title: placeName[0],
-            map: map
-        });
-        var marker2 = new google.maps.Marker({
-            position: {
-                lat: myTrip[myTrip.length - 1].lat,
-                lng: myTrip[myTrip.length - 1].lng
-            },
-            title: placeName[placeName.length - 1],
-            map: map
-        });
+        // var marker1 = new google.maps.Marker({
+        //     position: {
+        //         lat: myTrip[0].lat,
+        //         lng: myTrip[0].lng
+        //     },
+        //     title: placeName[0],
+        //     map: map
+        // });
+        // var marker2 = new google.maps.Marker({
+        //     position: {
+        //         lat: myTrip[myTrip.length - 1].lat,
+        //         lng: myTrip[myTrip.length - 1].lng
+        //     },
+        //     title: placeName[placeName.length - 1],
+        //     map: map
+        // });
 
+        var markers = new Array();
+        $.each(myTrip, function(index,value) {
+            markers.push(new google.maps.Marker({
+                position: {
+                    lat: myTrip[index].lat,
+                    lng: myTrip[index].lng
+                },
+                title: placeName[index],
+                map: map
+            }));
+        });
+            
 
         var flightPath = new google.maps.Polyline({
             path: myTrip,

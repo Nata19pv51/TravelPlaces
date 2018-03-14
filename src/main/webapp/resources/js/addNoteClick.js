@@ -2,10 +2,12 @@ var markers = [];
 
 function addNoteClick() {
     var urlArr;
+    //var route = "undefined";
+    //var idRoute;
 
     $("#addNote").replaceWith(
         "<div id=\"addDiv\">" +
-        // "<input type=\"hidden\" class=\"idNote\" name=\"idNote\" value=\"" + data.routID + "\"/>" +
+        //"<input type=\"hidden\" id=\"idRoute\" name=\"idNote\" value=\"" + data.idRoute + "\"/>" +
         "<input class=\"form-control\" type=\"text\" id=\"textNote\" name=\"textNote\" placeholder=\"Text\">" +
         //        "<input class=\"form-control\" type=\"text\" id=\"coordinate\" name=\"coordinate\" placeholder=\"coordinate\">" +
         // "<input class=\"form-control\" type=\"text\" id=\"coordinateLat\" name=\"coordinateLat\" placeholder=\"latitude\">" +
@@ -25,8 +27,9 @@ function addNoteClick() {
         // "</div>" +
         "</div>" +
         "<div id=\"map_canvas\"></div>" +
-        "<button class=\"btn m-2 btn-primary addRoute\" id=\"addNew\">Add note</button>");
-
+        "<button class=\"btn m-2 btn-primary addRoute\" id=\"addNew\">Add note</button>" +
+        "<button class=\"btn m-2 btn-primary cancelRoute\" id=\"cancelNew\">Cancel</button>");
+    //idRoute=$("#idRoute");
     //LOAD PHOTO:
     //***********************************************************************
     var options = {
@@ -90,8 +93,28 @@ function addNoteClick() {
         "background-color": "grey"
     })
     // canvasMap();
-    
 
+    $("#cancelNew").click(function () {
+        hiddenRoutTag = $("#routHiddenID")
+        if (hiddenRoutTag.length == 0) {
+            console.log("Not found rout")
+            $.ajax("noteServlet",
+                {
+                    success: setNotesContent,
+                    type: "GET",
+                    dataType: "text"
+                });
+        } else {
+            console.log(hiddenRoutTag.val())
+            $.ajax("showOneRouteServlet",
+                {
+                    success: oneRouteShow,
+                    type: "POST",
+                    dataType: "text",
+                    data: { "id": hiddenRoutTag.val() }
+                })
+        }
+    });
 }
 
 function addNewNote() {
@@ -130,7 +153,7 @@ function displayNewNote(data, status, jqxhr) {
     date = date.getDate() + '.' + month + '.' + date.getFullYear() +
         '  ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
     $("#addDiv").replaceWith(
-        "<button class=\"btn m-2 btn-primary\" id=\"add\">Add new</button>" +
+        "<button class=\"btn m-2 btn-primary\" id=\"add\">Add note</button>" +
         "<div class=\"divNotes mb-2\">" +
         "<input type=\"hidden\" class=\"idNote\" name=\"idNote\" value=\"" + data.noteId + "\"/>" +
         "<div class=\"text-muted text-small text-left timeNote\"><p>" + date + "</p></div>" +

@@ -20,7 +20,7 @@ function setRoutesContent(data, status, jqxhr) {
     var routeList = $("<div class=\"mt-2\" id=\"listRoutes\"></div>");
 
     info.append(routeList);
-    $("#add").replaceWith("<button class=\"btn m-2 btn-primary\" id=\"add\">Add new</button>");
+     $("#add").replaceWith("<button class=\"btn m-2 btn-primary\" id=\"add\">Add route</button>");
     data.forEach(function (item, i, data) {
         var time = item.time;
         var date = new Date(time);
@@ -29,7 +29,7 @@ function setRoutesContent(data, status, jqxhr) {
             '  ' + date.getHours() + ':' + date.getMinutes() + ':' + date.getSeconds();
 
         //    var date = new Date(data.list[i].time);
-        //    date = time.getDate() + '.' + time.getMonth()+1 + '.' + time.getFullYear();
+        //    date = time.getDate() + '.' + timeaddNoteClick.getMonth()+1 + '.' + time.getFullYear();
         console.log(date);
         routeList.append(
             "<div class=\"divRoutes mb-2\">" +
@@ -99,9 +99,10 @@ function setRoutesContent(data, status, jqxhr) {
 
 function addInputRoute() {
     //$("#div").empty();
-    $("#add").replaceWith("<div id=\"add\">" +
-        "<input class=\"form-control\" type=\"text\" id=\"titleRoute\" name=\"titleRoute\" placeholder=\"Title\">" +
-        "<button class=\"btn m-2 btn-primary addRoute\" id=\"addRoute\">Add route</button>" +
+    $("#add").replaceWith(
+        "<div id=\"add\">" +
+            "<input class=\"form-control\" type=\"text\" id=\"titleRoute\" name=\"titleRoute\" placeholder=\"Title\">" +
+            "<button class=\"btn m-2 btn-primary addRoute\" id=\"addRoute\">Add route</button>" +
         "</div>");
 
     $("#addRoute").click(addRoute);

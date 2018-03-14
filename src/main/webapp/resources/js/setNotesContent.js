@@ -10,7 +10,7 @@ function setNotesContent(data, status, jqxhr) {
         "background-size": "cover"
     });
     var noteList = $("<div class=\"mt-5\" id=\"listNotes\">" +
-        "<button class=\"btn m-2 btn-primary\" id=\"addNote\">Add new</button>" +
+        "<button class=\"btn m-2 btn-primary\" id=\"addNote\">Add note</button>" +
         "</div>");
     data.forEach(function (item, i, data) {
         var time = item.time;

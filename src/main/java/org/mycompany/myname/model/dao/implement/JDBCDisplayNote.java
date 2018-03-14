@@ -218,7 +218,8 @@ public class JDBCDisplayNote {
                 "JOIN coordinate ON note.id_note = coordinate.id_note " +
                 "JOIN textnode ON note.id_note = textnode.id_note " +
                 "JOIN routeNote ON note.id_note = routeNote.id_note " +
-                "WHERE routeNote.id_route =" + routeId;
+                "WHERE routeNote.id_route =" + routeId +
+                " ORDER BY note.dateCreation DESC";
 //                "SELECT note.id_note, note.dateCreation, coordinate.coordinate, textnode.text " +
 //                "FROM note " +
 //                "JOIN coordinate ON note.id_note = coordinate.id_note " +

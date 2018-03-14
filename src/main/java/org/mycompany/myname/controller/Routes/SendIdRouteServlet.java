@@ -11,9 +11,9 @@ import java.io.IOException;
 public class SendIdRouteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
-        String idRoute = httpServletRequest.getParameter("routID");
-//        int id = Integer.parseInt(idRoute);
-        String jsonString = String.format("{\"idRoute\": %d}", idRoute);
+        String idRoute = httpServletRequest.getParameter("id");
+        int id = Integer.parseInt(idRoute);
+        String jsonString = String.format("{\"idRoute\": %d}", id);
         System.out.println(jsonString);
         httpServletResponse.getWriter().print(jsonString);
     }
