@@ -80,7 +80,7 @@
         <div class="form-group row">
           <label class="form-control-label col-md-2 text-md-right col-form-label" for="ownerpassword">Password</label>
           <div class="col-md-10">
-              <input class="form-control" type="text" name="password" id="password" placeholder="Password">
+              <input class="form-control" type="password" name="password" id="password" placeholder="Password">
           </div>
         </div><!-- form-group -->
 

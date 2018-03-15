@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 //import org.json.simple.JSONObject;
 import org.mycompany.myname.model.dao.implement.JDBCUser;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,24 +23,24 @@ public class RegisteredServlet extends HttpServlet {
         jdbcUser.setLogin(login);
         jdbcUser.setPassword(password);
         jdbcUser.setEmail(email);
-        Gson gson = new Gson();
-        if(jdbcUser == jdbcUser.findByLogin(login)){
-                String jsonString = gson.toJson("no");
-                System.out.println(jsonString);
-                httpServletResponse.getWriter().print(jsonString);
-        }
-        else {
-                jdbcUser.create(jdbcUser);
 
-        //*************************************************************************************
-                HttpSession session = httpServletRequest.getSession();
-                session.setAttribute("userId", jdbcUser.getIdUser());
-        //*************************************************************************************
+        JDBCUser userFromDB = jdbcUser.findByLogin(login);
+        if (userFromDB == null || !jdbcUser.getLogin().equals(userFromDB.getLogin())) {
+            jdbcUser.create(jdbcUser);
 
-            String jsonString = gson.toJson("yes");
-                System.out.println(jsonString);
-                httpServletResponse.getWriter().print(jsonString);
-
+            //*************************************************************************************
+            HttpSession session = httpServletRequest.getSession();
+            session.setAttribute("userId", jdbcUser.getIdUser());
+            //*************************************************************************************
+//            RequestDispatcher rd=getServletContext().getRequestDispatcher("/WEB-INF/homePage.jsp");
+//            rd.forward(httpServletRequest,httpServletResponse);
+            String jsonString = "{\"userAbsent\": \"yes\"}";
+            System.out.println(jsonString);
+            httpServletResponse.getWriter().print(jsonString);
+        } else {
+            String jsonString = "{\"userAbsent\": \"no\"}";
+            System.out.println(jsonString);
+            httpServletResponse.getWriter().print(jsonString);
         }
     }
 }

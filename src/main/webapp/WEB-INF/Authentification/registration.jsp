@@ -22,7 +22,9 @@
        <p class="lead text-white">Follow the assigned route on the way to your goal</p>
    </div>
 </header>
+    <nav class="navbar navbar-inverse navbar-toggleable-sm" id="navigate" style="background-color: #C71585">
 
+    </nav>
 <div class="container">
   <div class="mt-5" id="registerForm" >
 
@@ -42,11 +44,11 @@
               <input class="form-control" type="text" id="loginReg" name="loginReg" placeholder="Login">
           </div>
         </div><!-- form-group -->
-
+        <div id="otherLogin"></div>
         <div class="form-group row">
           <label class="form-control-label col-md-2 text-md-right col-form-label" for="ownerpassword">Password</label>
           <div class="col-md-10">
-              <input class="form-control" type="text" id="passwordReg" name="passwordReg" placeholder="Password">
+              <input class="form-control" type="password" id="passwordReg" name="passwordReg" placeholder="Password">
           </div>
         </div><!-- form-group -->
 
