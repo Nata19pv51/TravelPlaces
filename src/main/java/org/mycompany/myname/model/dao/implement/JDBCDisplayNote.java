@@ -1,6 +1,7 @@
 package org.mycompany.myname.model.dao.implement;
 
 import com.google.gson.Gson;
+import org.mycompany.myname.model.DBUtil;
 import org.mycompany.myname.model.dao.Query;
 
 import java.sql.*;
@@ -102,11 +103,9 @@ public class JDBCDisplayNote {
     }
 
     public int getMaxID() {
-        String URL = "jdbc:mysql://localhost/Travel";
-        String USER = "root";
         String query = "SELECT MAX(id_note) FROM note";
         int maxID;
-        try (Connection connection = DriverManager.getConnection(URL, USER, "");
+        try (Connection connection = DBUtil.getConnection(DBUtil.DEFAULT_DB);
              Statement ps = connection.createStatement();
              ResultSet resultSet = ps.executeQuery(query)) {
             if (resultSet.next()) {
@@ -120,12 +119,10 @@ public class JDBCDisplayNote {
     }
 
     public void createNote(int userId) throws Exception {
-        String URL = "jdbc:mysql://localhost/Travel";
-        String USER = "root";
         long curTime = System.currentTimeMillis();
         String query = "INSERT INTO " + NOTE_TABLE + " (" + DATE_CREATION + ", " + ID_USER + ") VALUES (" +
                 curTime + ", " + userId + ")";
-        try (Connection connection = DriverManager.getConnection(URL, USER, "");
+        try (Connection connection = DBUtil.getConnection(DBUtil.DEFAULT_DB);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -134,10 +131,9 @@ public class JDBCDisplayNote {
     }
 
     public void createText(int id, String text) throws Exception {
-        String URL = "jdbc:mysql://localhost/Travel";
-        String USER = "root";
-        String query = "INSERT INTO textnode (textnode.id_note, textnode.text) VALUES (" + id + ", '" + text + "')";
-        try (Connection connection = DriverManager.getConnection(URL, USER, "");
+        String query = "INSERT INTO textnode (id_note, text) VALUES (" + id + ", '" + text + "')";
+        System.out.println(query);
+        try (Connection connection = DBUtil.getConnection(DBUtil.DEFAULT_DB);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -146,10 +142,8 @@ public class JDBCDisplayNote {
     }
 
     public void createCoordinate(int id, double lat, double lng) throws Exception {
-        String URL = "jdbc:mysql://localhost/Travel";
-        String USER = "root";
-        String query = "INSERT INTO coordinate (coordinate.id_note, coordinate.Lat, coordinate.Lng) VALUES (" + id + ", " + lat + ", " + lng + ")";
-        try (Connection connection = DriverManager.getConnection(URL, USER, "");
+        String query = "INSERT INTO coordinate (id_note, Lat, Lng) VALUES (" + id + ", " + lat + ", " + lng + ")";
+        try (Connection connection = DBUtil.getConnection(DBUtil.DEFAULT_DB);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -158,10 +152,8 @@ public class JDBCDisplayNote {
     }
 
     public void createRouteNote(int idRoute, int idNote) throws Exception {
-        String URL = "jdbc:mysql://localhost/Travel";
-        String USER = "root";
         String query = "INSERT INTO routeNote (id_route, id_note) VALUES (" + idRoute + ", " + idNote + ")";
-        try (Connection connection = DriverManager.getConnection(URL, USER, "");
+        try (Connection connection = DBUtil.getConnection(DBUtil.DEFAULT_DB);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -170,11 +162,9 @@ public class JDBCDisplayNote {
     }
 
     public void savePhoto(int id_note, String url) {
-        String URL = "jdbc:mysql://localhost/Travel";
-        String USER = "root";
         String query = "INSERT INTO " + PHOTO_TABLE + " (" + ID_NOTE + ", " + URL_PHOTO + ") VALUES (\"" +
                 id_note + "\", '" + url + "')";
-        try (Connection connection = DriverManager.getConnection(URL, USER, "");
+        try (Connection connection = DBUtil.getConnection(DBUtil.DEFAULT_DB);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -185,11 +175,8 @@ public class JDBCDisplayNote {
     // public List<>
 
     static public List<JDBCDisplayNote> getDisplayNotesByUserID(int userId) {
-        String URL = "jdbc:mysql://localhost/Travel";
-        String USER = "root";
-
         List<JDBCDisplayNote> notes = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection(URL, USER, "");
+        try (Connection connection = DBUtil.getConnection(DBUtil.DEFAULT_DB);
              Statement ps = connection.createStatement();
              ResultSet resultSet = ps.executeQuery(Query.findAllNotesByUserId(userId))) {
 
@@ -228,7 +215,7 @@ public class JDBCDisplayNote {
 //                "WHERE routeNote.id_note = " + routeId +
 //                " ORDER BY note.dateCreation DESC";
         List<JDBCDisplayNote> notes = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection(URL, USER, "");
+        try (Connection connection = DBUtil.getConnection(DBUtil.DEFAULT_DB);
              Statement ps = connection.createStatement();
              ResultSet resultSet = ps.executeQuery(query)
         ) {
@@ -253,7 +240,7 @@ public class JDBCDisplayNote {
         String USER = "root";
 
         String query = "UPDATE textnode SET text = ? WHERE id_note = ?";
-        try (Connection connection = DriverManager.getConnection(URL, USER, "");
+        try (Connection connection = DBUtil.getConnection(DBUtil.DEFAULT_DB);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, note.getText());
             preparedStatement.setInt(2, note.getNoteId());
@@ -264,13 +251,11 @@ public class JDBCDisplayNote {
     }
 
     static public JDBCDisplayNote getNoteByID(int noteId) {
-        String URL = "jdbc:mysql://localhost/Travel";
-        String USER = "root";
         String query = "SELECT note.id_note, note.dateCreation, textnode.text, coordinate.Lat, coordinate.Lng FROM note JOIN textnode " +
                 "ON note.id_note=textnode.id_note" +
                 " JOIN coordinate ON note.id_note=coordinate.id_note" +
                 " WHERE note.id_note=" + noteId;
-        try (Connection connection = DriverManager.getConnection(URL, USER, "");
+        try (Connection connection = DBUtil.getConnection(DBUtil.DEFAULT_DB);
              Statement ps = connection.createStatement();
              ResultSet resultSet = ps.executeQuery(query)) {
             JDBCDisplayNote note = new JDBCDisplayNote();

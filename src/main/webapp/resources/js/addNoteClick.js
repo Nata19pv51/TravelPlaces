@@ -124,25 +124,45 @@ function addNewNote() {
         routID = id.val()
     }
 
-    $.ajax({
-        url: "newNoteServlet",
-        success: displayNewNote,
-        type: "GET",
-        dataType: "text",
-        //data: { "text": $("#textNote").val(), "coordinate": $("#coordinate").val(), "photo": $(".urlPhoto").val() }
-        data: {
-            "routID": routID,
-            "text": $("#textNote").val(),
-            //            "coordinate": $("#coordinate").val(),
-            // "Lat": $("#coordinateLat").val(),
-            // "Lng": $("#coordinateLng").val(),
-            "Lat": markers[0].position.lat(),
-            "Lng": markers[0].position.lng(),
-            "photo": $(".urlPhoto").map(function () {
-                return $(this).val();
-            }).get().join(",")
-        }
-    });
+    if(routID == -1){
+        $.ajax({
+            url: "newNoteServlet",
+            //success: displayNewNote,
+            success: setNotesContent,
+            type: "GET",
+            dataType: "text",
+            //data: { "text": $("#textNote").val(), "coordinate": $("#coordinate").val(), "photo": $(".urlPhoto").val() }
+            data: {
+                "routID": routID,
+                "text": $("#textNote").val(),
+                "Lat": markers[0].position.lat(),
+                "Lng": markers[0].position.lng(),
+                "photo": $(".urlPhoto").map(function () {
+                    return $(this).val();
+                }).get().join(",")
+            }
+        });
+    }
+    else{
+        $.ajax({
+            url: "newNoteServlet",
+            //success: displayNewNote,
+            success: oneRouteShow,
+            type: "GET",
+            dataType: "text",
+            //data: { "text": $("#textNote").val(), "coordinate": $("#coordinate").val(), "photo": $(".urlPhoto").val() }
+            data: {
+                "routID": routID,
+                "text": $("#textNote").val(),
+                "Lat": markers[0].position.lat(),
+                "Lng": markers[0].position.lng(),
+                "photo": $(".urlPhoto").map(function () {
+                    return $(this).val();
+                }).get().join(",")
+            }
+        });
+    }
+    
 }
 
 function displayNewNote(data, status, jqxhr) {

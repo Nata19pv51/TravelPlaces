@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 
@@ -29,7 +30,13 @@ public class RegisteredServlet extends HttpServlet {
         }
         else {
                 jdbcUser.create(jdbcUser);
-                String jsonString = gson.toJson("yes");
+
+        //*************************************************************************************
+                HttpSession session = httpServletRequest.getSession();
+                session.setAttribute("userId", jdbcUser.getIdUser());
+        //*************************************************************************************
+
+            String jsonString = gson.toJson("yes");
                 System.out.println(jsonString);
                 httpServletResponse.getWriter().print(jsonString);
 

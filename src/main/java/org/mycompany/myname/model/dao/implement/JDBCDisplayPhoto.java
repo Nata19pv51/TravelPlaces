@@ -1,5 +1,7 @@
 package org.mycompany.myname.model.dao.implement;
 
+import org.mycompany.myname.model.DBUtil;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,10 +46,8 @@ public class JDBCDisplayPhoto {
 //    }
 
     static public List<JDBCDisplayPhoto> findPhotos(int idNote){
-        String URL = "jdbc:mysql://localhost/Travel";
-        String USER = "root";
         List<JDBCDisplayPhoto> photoList = new ArrayList<>();
-        try(Connection connection = DriverManager.getConnection(URL, USER, "");
+        try(Connection connection = DBUtil.getConnection(DBUtil.DEFAULT_DB);
             Statement state = connection.createStatement();
             ResultSet resultSet = state.executeQuery(
                     "SELECT " + URL_PHOTO +
@@ -68,10 +68,8 @@ public class JDBCDisplayPhoto {
     }
 
     static public List<JDBCDisplayPhoto> findAllPhotosByUser(int idUser){
-        String URL = "jdbc:mysql://localhost/Travel";
-        String USER = "root";
         List<JDBCDisplayPhoto> photoList = new ArrayList<>();
-        try(Connection connection = DriverManager.getConnection(URL, USER, "");
+        try(Connection connection = DBUtil.getConnection(DBUtil.DEFAULT_DB);
             Statement state = connection.createStatement();
             ResultSet resultSet = state.executeQuery(
                     "SELECT url_photo FROM notePhoto JOIN note ON" +
@@ -91,10 +89,8 @@ public class JDBCDisplayPhoto {
     }
 
     static public List<JDBCDisplayPhoto> findPhotosByRoute(int idRoute){
-        String URL = "jdbc:mysql://localhost/Travel";
-        String USER = "root";
         List<JDBCDisplayPhoto> photoList = new ArrayList<>();
-        try(Connection connection = DriverManager.getConnection(URL, USER, "");
+        try(Connection connection = DBUtil.getConnection(DBUtil.DEFAULT_DB);
             Statement state = connection.createStatement();
             ResultSet resultSet = state.executeQuery(
                     //TO DO

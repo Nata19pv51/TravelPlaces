@@ -1,6 +1,7 @@
 package org.mycompany.myname.model.dao.implement;
 
 import com.google.gson.Gson;
+import org.mycompany.myname.model.DBUtil;
 import org.mycompany.myname.model.dao.IDisplayNoteDao;
 import org.mycompany.myname.model.entity.DisplayNote;
 import org.mycompany.myname.model.entity.Text;
@@ -49,10 +50,8 @@ public class JDBCDisplayNoteDao implements IDisplayNoteDao {
 
     @Override
     public List<DisplayNote> findAll(int id) {
-        String URL = "jdbc:mysql://localhost/Travel";
-        String USER  = "root";
         List<DisplayNote> notes = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection(URL, USER, "");
+        try (Connection connection = DBUtil.getConnection(DBUtil.DEFAULT_DB);
              Statement ps = connection.createStatement();
              ResultSet resultSet = ps.executeQuery(FIND_BY_ID_NOTE)) {
 
@@ -69,12 +68,9 @@ public class JDBCDisplayNoteDao implements IDisplayNoteDao {
 
     @Override
     public void update(DisplayNote note) throws Exception {
-        String URL = "jdbc:mysql://localhost/Travel";
-        String USER  = "root";
-
         String query =  "UPDATE " + Text.TEXT_TABLE + " SET " + Text.TEXT + " = ?" +
                 " WHERE " + Text.ID_NOTE + " = ?";
-        try (Connection connection = DriverManager.getConnection(URL, USER, "");
+        try (Connection connection = DBUtil.getConnection(DBUtil.DEFAULT_DB);
              PreparedStatement preparedStatement = connection.prepareStatement(query)) {
             preparedStatement.setString(1, note.getText());
             preparedStatement.setInt(2, note.getNoteId());
@@ -117,8 +113,6 @@ public class JDBCDisplayNoteDao implements IDisplayNoteDao {
 
     @Override
     public List<DisplayNote> findAllNotesByUserID(int id) {
-        String URL = "jdbc:mysql://localhost/Travel";
-        String USER  = "root";
         List<DisplayNote> notes = new ArrayList<>();
 
 //        String query = "SELECT " + DisplayNote.NOTE_TABLE + "." +
@@ -133,7 +127,7 @@ public class JDBCDisplayNoteDao implements IDisplayNoteDao {
                 " JOIN textnode ON note.id_note=textnode.id_note" +
                 " WHERE note.id_user = ?";
 
-        try (Connection connection = DriverManager.getConnection(URL, USER, "")) {
+        try (Connection connection = DBUtil.getConnection(DBUtil.DEFAULT_DB)) {
              //ResultSet resultSet = ps.executeQuery(FIND_ALL_NOTES_BY_USER);
             PreparedStatement preparedStatement = connection.prepareStatement(query);
             preparedStatement.setInt(1, 1);

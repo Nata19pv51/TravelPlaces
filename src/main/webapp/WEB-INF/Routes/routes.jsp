@@ -38,22 +38,16 @@
       </div><!-- navbar-nav -->
   </div><!-- collapse -->
 
-    <form class="form-inline">
-        <div class="input-group">
-            <label class="form-control-label sr-only" for="search">Search</label>
-            <input type="text" id="search" class="form-control" placeholder="Search for...">
-            <span class="input-group-btn">
-                <button class="btn btn-info">Go</button>
-            </span>
-        </div>
-    </form>
+  <div>
+    <a class="nav-item nav-link" href="signOutServlet"><img id="signout" src="resources/images/sign-out.png"></a>
+  </div>
 </nav>
 
 <div class="container">
     <h2 class="mt-5">Routes</h2>
     <div id="insert_div" class="row">
         <div class="col-sm-3" >
-            <button class="btn m-2 btn-primary" id="add">Add new</button>
+            <button class="btn m-2 btn-primary" id="add">Add route</button>
             <div class="anyClass" id="allRoutes" style="height: auto; overflow-y: scroll"></div>
         </div>
         <div class="col-sm-3" id="oneRoute">
@@ -72,16 +66,16 @@
 </div>
 
 <script src="resources/js/jquery-3.3.1.min.js"></script>
+<script src="resources/js/tether.min.js"></script>
+<script src="resources/js/bootstrap.min.js"></script>
 <script src="http://malsup.github.com/jquery.form.js"></script>
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjjC7v0SfDZg0dquCEIWzqAn_blHu6I7M"></script>
-<script src="resources/js/tether.min.js"></script>
-<script src="resources/js/bootstrap.min.js"></script>
-<script src="resources/js/loadRoutes.js"></script>
 <!-- <script src="resources/js/setNotesContent.js"></script> -->
-<script src="resources/js/addNoteClick.js"></script>
+
 <script src="resources/js/oneRouteShow.js"></script>
 <script src="resources/js/initMap.js"></script>
-
+<script src="resources/js/loadRoutes.js"></script>
+<script src="resources/js/addNoteClick.js"></script>
 </body>
 </html>

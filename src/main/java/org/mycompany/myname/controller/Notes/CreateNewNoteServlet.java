@@ -1,6 +1,7 @@
 package org.mycompany.myname.controller.Notes;
 
 import com.google.gson.Gson;
+import jdk.nashorn.internal.scripts.JD;
 import org.mycompany.myname.model.dao.implement.JDBCDisplayNote;
 import org.mycompany.myname.model.dao.implement.JDBCDisplayPhoto;
 
@@ -8,12 +9,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class CreateNewNoteServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
+        HttpSession session = httpServletRequest.getSession();
+        int id = (int)session.getAttribute("userId");
 
         String routID = httpServletRequest.getParameter("routID");
         String text = httpServletRequest.getParameter("text");
@@ -36,7 +41,7 @@ public class CreateNewNoteServlet extends HttpServlet {
         JDBCDisplayNote note = new JDBCDisplayNote();
         //JDBCDisplayPhoto jdbcDisplayPhoto = new JDBCDisplayPhoto();
         try{
-            note.createNote(1);
+            note.createNote(id);
             maxID = note.getMaxID();
             note.createText(maxID, text);
             note.createCoordinate(maxID, lat, lng);
@@ -46,12 +51,21 @@ public class CreateNewNoteServlet extends HttpServlet {
                 note.savePhoto(maxID, item);
                 System.out.println(maxID + ", " + item);
             }
+            if(routeID == -1){
+                List<JDBCDisplayNote> note2 = JDBCDisplayNote.getDisplayNotesByUserID(id);
+                Gson gson = new Gson();
+                String jsonString = gson.toJson(note2);
+                System.out.println(jsonString);
+                httpServletResponse.getWriter().print(jsonString);
+            }
+            else{
+                List<JDBCDisplayNote> notes = JDBCDisplayNote.getDisplayNotesByRouteID(routeID);
+                Gson gson = new Gson();
+                String jsonString = gson.toJson(notes);
+                System.out.println(jsonString);
+                httpServletResponse.getWriter().print(jsonString);
+            }
 
-           JDBCDisplayNote note2 = JDBCDisplayNote.getNoteByID(maxID);
-            Gson gson = new Gson();
-            String jsonString = gson.toJson(note2);
-            System.out.println(jsonString);
-            httpServletResponse.getWriter().print(jsonString);
         }catch (Exception e){
             e.printStackTrace();
         }

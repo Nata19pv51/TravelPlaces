@@ -7,16 +7,27 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
 public class AllRoutesServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws ServletException, IOException {
-        List<JDBCDisplayRoutes> nodes =  JDBCDisplayRoutes.getRoutesByUserID(1);
+        HttpSession session = httpServletRequest.getSession();
+        int id = (int)session.getAttribute("userId");
+        List<JDBCDisplayRoutes> routes =  JDBCDisplayRoutes.getRoutesByUserID(id);
         Gson gson = new Gson();
-        String jsonString = gson.toJson(nodes);
-        System.out.println(jsonString);
-        httpServletResponse.getWriter().print(jsonString);
+        String jsonString;
+        if(routes.isEmpty()){
+            jsonString = "{\"routes\": \"null\"}";
+            System.out.println(jsonString);
+            httpServletResponse.getWriter().print(jsonString);
+        }else{
+            jsonString = gson.toJson(routes);
+            System.out.println(jsonString);
+            httpServletResponse.getWriter().print(jsonString);
+        }
+
     }
 }

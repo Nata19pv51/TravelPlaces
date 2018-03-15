@@ -1,5 +1,7 @@
 package org.mycompany.myname.model.dao.implement;
 
+import org.mycompany.myname.model.DBUtil;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,11 +51,9 @@ public class JDBCDisplayRoutes {
     }
 
     public int getMaxID(){
-        String URL = "jdbc:mysql://localhost/Travel";
-        String USER  = "root";
         String query = "SELECT MAX(id_route) FROM route";
         int maxID;
-        try (Connection connection = DriverManager.getConnection(URL, USER, "");
+        try (Connection connection = DBUtil.getConnection(DBUtil.DEFAULT_DB);
              Statement ps = connection.createStatement();
              ResultSet resultSet = ps.executeQuery(query)){
             //JDBCDisplayNote note = new JDBCDisplayNote();
@@ -68,15 +68,13 @@ public class JDBCDisplayRoutes {
         return 0;
     }
     static public List<JDBCDisplayRoutes> getRoutesByUserID(int userId) {
-        String URL = "jdbc:mysql://localhost/Travel";
-        String USER  = "root";
         String query = "SELECT " + ID_ROUTE + ", " + TITLE + ", " + DATE_CREATION + ", " + ID_USER +
                        " FROM " + ROUTE_TABLE +
                        " WHERE " + ID_USER + " = " + userId +
                        " ORDER BY " + DATE_CREATION + " DESC";
 
         List<JDBCDisplayRoutes> routesList = new ArrayList<>();
-        try (Connection connection = DriverManager.getConnection(URL, USER, "");
+        try (Connection connection = DBUtil.getConnection(DBUtil.DEFAULT_DB);
              Statement ps = connection.createStatement();
              ResultSet resultSet = ps.executeQuery(query)) {
 
@@ -96,12 +94,10 @@ public class JDBCDisplayRoutes {
     }
 
     public void create(String title, int userId) throws Exception {
-        String URL = "jdbc:mysql://localhost/Travel";
-        String USER  = "root";
         long curTime = System.currentTimeMillis();
         String query =  "INSERT INTO " + ROUTE_TABLE + " (" + TITLE + ", " + DATE_CREATION + ", " + ID_USER + ") VALUES (\"" +
                         title + "\", " + curTime + ", " + userId + ")";
-        try (Connection connection = DriverManager.getConnection(URL, USER, "");
+        try (Connection connection = DBUtil.getConnection(DBUtil.DEFAULT_DB);
              PreparedStatement preparedStatement = connection.prepareStatement(query)){
 //             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS))
             preparedStatement.executeUpdate();
@@ -137,11 +133,9 @@ public class JDBCDisplayRoutes {
 //        String currentTime = sdf.format(dt);
 
     static public JDBCDisplayRoutes getRouteByID(int routeId) {
-        String URL = "jdbc:mysql://localhost/Travel";
-        String USER  = "root";
         String query = "SELECT id_route, dateCreation, name FROM route" +
                 " WHERE id_route=" + routeId;
-        try (Connection connection = DriverManager.getConnection(URL, USER, "");
+        try (Connection connection = DBUtil.getConnection(DBUtil.DEFAULT_DB);
              Statement ps = connection.createStatement();
              ResultSet resultSet = ps.executeQuery(query)){
 

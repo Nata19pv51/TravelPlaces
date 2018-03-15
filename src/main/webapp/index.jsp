@@ -23,7 +23,7 @@
    </div>
 </header>
 
-<nav class="navbar navbar-inverse navbar-toggleable-sm" style="background-color: #C71585">
+<!-- <nav class="navbar navbar-inverse navbar-toggleable-sm" style="background-color: #C71585">
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
     data-target="#myContent" aria-controls="myContent" aria-expanded="false" aria-label="Toggle Navigation">
       <span class="navbar-toggler-icon"></span>
@@ -50,9 +50,9 @@
         <a class="nav-item nav-link" href="#">Staff</a>
         <a class="nav-item nav-link" href="#">Testimonials</a>
       </div><!-- navbar-nav -->
-  </div><!-- collapse -->
+  <!-- </div><!-- collapse -->
 
-    <form class="form-inline">
+    <!-- <form class="form-inline">
         <div class="input-group">
             <label class="form-control-label sr-only" for="search">Search</label>
             <input type="text" id="search" class="form-control" placeholder="Search for...">
@@ -60,8 +60,8 @@
                 <button class="btn btn-info">Go</button>
             </span>
         </div>
-    </form>
-</nav>
+    </form> -->
+<!-- </nav>  -->
 
 
 <div class="container">
@@ -96,8 +96,6 @@
 <script src="resources/js/jquery.slim.min.js"></script>
 <script src="resources/js/tether.min.js"></script>
 <script src="resources/js/bootstrap.min.js"></script>
-<script src="resources/js/script.js"></script>
-
 
 </body>
 </html>

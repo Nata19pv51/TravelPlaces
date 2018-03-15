@@ -14,7 +14,7 @@
 body{
     background-image: #FFF5EE;
     background-repeat: no-repeat;
-    background-size: cover
+    background-size: cover;
 }
 
 
@@ -34,4 +34,9 @@ body{
     background-color: white;
     /* align-content: center; */
     margin-left: 10%;
+}
+
+#signout{
+    width: 20px;
+    height: 20px;
 }

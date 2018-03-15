@@ -30,15 +30,9 @@
       </div><!-- navbar-nav -->
   </div><!-- collapse -->
 
-    <form class="form-inline">
-        <div class="input-group">
-            <label class="form-control-label sr-only" for="search">Search</label>
-            <input type="text" id="search" class="form-control" placeholder="Search for...">
-            <span class="input-group-btn">
-                <button class="btn btn-info">Go</button>
-            </span>
-        </div>
-    </form>
+  <div>
+    <a class="nav-item nav-link" href="signOutServlet"><img id="signout" src="resources/images/sign-out.png"></a>
+  </div>
 </nav>
 
 <div class="container">

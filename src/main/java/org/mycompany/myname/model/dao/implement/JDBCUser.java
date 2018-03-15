@@ -1,5 +1,6 @@
 package org.mycompany.myname.model.dao.implement;
 
+import org.mycompany.myname.model.DBUtil;
 import org.mycompany.myname.model.dao.Query;
 import org.mycompany.myname.model.entity.User;
 
@@ -46,33 +47,41 @@ public class JDBCUser {
     }
 
     public Boolean findByLoginPassword(String login, String password) {
-        String url = "jdbc:mysql://localhost/Travel";
-        String user = "root";
+        String query = "SELECT id_user FROM user WHERE login = \"" + login
+                + "\" AND password = \"" + password + "\"";
 //        String query = "SELECT id_user, login, password FROM user WHERE login = ? AND password = ?";
-        try (Connection connection = DriverManager.getConnection(url, user, "");
+        try (Connection connection = DBUtil.getConnection(DBUtil.DEFAULT_DB);
              //PreparedStatement ps = connection.prepareStatement(query))
              Statement ps = connection.createStatement();
-             ResultSet resultSet = ps.executeQuery(Query.findUserByParameters(login, password))) {
+             ResultSet resultSet = ps.executeQuery(query)) {
             if (resultSet.wasNull()) {
                 return true;
             }
-//        JDBCUser user;
-//            while (resultSet.next()) {
-//                user = new JDBCUser();
-//                user.setIdUser(resultSet.getInt("id_user"));
-//                user.setLogin(resultSet.getString("login"));
-//                user.setPassword(resultSet.getString("password"));
-//                users.add(note);
         } catch (SQLException e1) {
             e1.printStackTrace();
         }
         return false;
     }
 
+    public int findUser(String login, String password) {
+        int id;
+        String query = "SELECT id_user FROM user WHERE login = \"" + login
+                + "\" AND password = \"" + password + "\"";
+        try (Connection connection = DBUtil.getConnection(DBUtil.DEFAULT_DB);
+             Statement ps = connection.createStatement();
+             ResultSet resultSet = ps.executeQuery(query)) {
+            if (resultSet.next()) {
+                id = resultSet.getInt("id_user");
+                return id;
+            }
+        } catch (SQLException e1) {
+            e1.printStackTrace();
+        }
+        return 0;
+    }
+
     public void create(JDBCUser user) {
-        String url = "jdbc:mysql://localhost/Travel";
-        String root = "root";
-        try(Connection connection = DriverManager.getConnection(url, root, "");
+        try(Connection connection = DBUtil.getConnection(DBUtil.DEFAULT_DB);
             PreparedStatement ps = connection.prepareStatement(
                     "INSERT INTO user(login, password, email) VALUES (?,?,?)")){
             ps.setString(1, user.getLogin());
@@ -85,10 +94,8 @@ public class JDBCUser {
     }
 
     public JDBCUser findByLogin(String login){
-        String url = "jdbc:mysql://localhost/Travel";
-        String root = "root";
         //JDBCUser user = new JDBCUser();
-        try(Connection connection = DriverManager.getConnection(url, root, "");
+        try(Connection connection = DBUtil.getConnection(DBUtil.DEFAULT_DB);
             PreparedStatement ps = connection.prepareStatement(
                     "SELECT login, password, email FROM user WHERE login = ?")){
             ps.setString(1, login);

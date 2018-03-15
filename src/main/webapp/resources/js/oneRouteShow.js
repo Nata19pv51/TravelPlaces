@@ -88,6 +88,11 @@ function oneRouteShow(data, status, jqxhr) {
         var mapCanvas = document.getElementById("map_canvas");
         var mapOptions = { center: myTrip[0], zoom: 4 };
         var map = new google.maps.Map(mapCanvas, mapOptions);
+        map.addListener('zoom_changed', function (e) {
+            // https://developers.google.com/maps/documentation/javascript/marker-clustering
+            var markerCluster = new MarkerClusterer(map, markers,
+                { imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m' });
+        });
         // var marker1 = new google.maps.Marker({
         //     position: {
         //         lat: myTrip[0].lat,
@@ -116,7 +121,6 @@ function oneRouteShow(data, status, jqxhr) {
                 map: map
             }));
         });
-            
 
         var flightPath = new google.maps.Polyline({
             path: myTrip,
